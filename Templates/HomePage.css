@@ -1,0 +1,114 @@
+/* כללי */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    direction: rtl;
+    text-align: center;
+}
+
+header {
+    background-color: black;
+    color: #fff;
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* לוגו */
+.logo {
+    height: 50px; /* גובה הלוגו */
+    width: auto; /* התאמה יחסית לרוחב */
+    vertical-align: middle; /* מיישר את הלוגו עם שאר הקישורים */
+    margin-right: 10px; /* רווח בין הלוגו לקישורים */
+}
+
+/* תפריט ניווט */
+.navbar {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center; /* מיישר את הפריטים למרכז אנכי */
+    justify-content: center;
+    gap: 15px; /* רווח בין הפריטים */
+}
+
+
+.navbar li {
+    display: inline;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    transition: background-color 0.3s;
+}
+
+.navbar a:hover {
+    background-color: #575757;
+    border-radius: 5px;
+}
+
+/* אזור התוכן */
+main {
+    color: white;
+    padding: 20px;
+    background-image: url('photo1.jpg'); /* נתיב לתמונה */
+    background-size: cover; /* מתאים את התמונה לשטח */
+    background-position: center; /* ממקם את התמונה במרכז */
+    background-repeat: no-repeat; /* מונע חזרה על התמונה */
+    height: 100vh; /* גובה של כל הדף */
+}
+
+.section {
+    margin: 20px 0;
+}
+
+h1, h2 {
+    margin-bottom: 10px;
+    color: #fff; /* שינוי צבע הטקסט כדי להתאים לרקע */
+}
+
+/* תחתית העמוד */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* כפתור */
+.plan-event-button {
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 30px;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.plan-event-button:hover {
+    background-color: rgb(192, 222, 255);
+    transform: scale(1.05);
+}
+
+.plan-event-button:active {
+    transform: scale(0.95);
+}
+
+/* סגנון מרכזי לדף הבית */
+#home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
