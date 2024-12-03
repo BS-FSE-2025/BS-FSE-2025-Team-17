@@ -1,21 +1,19 @@
-const loginFields = document.getElementById('login-fields');
-const registerFields = document.getElementById('register-fields');
-const switchMode = document.getElementById('switch-mode');
-const registerLink = document.getElementById('register-link');
-const pageTitle = document.getElementById('page-title');
+// מעבר לתצוגת הרשמה
+const switchToRegister = document.getElementById('switch-to-register');
+// מעבר לתצוגת התחברות
+const switchToLogin = document.getElementById('switch-to-login');
+// תצוגות התחברות והרשמה
+const loginContainer = document.querySelector('.login-container');
+const registerContainer = document.querySelector('.register-container');
 
-// מעבר בין התחברות להרשמה
-switchMode.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (loginFields.style.display === 'none') {
-        loginFields.style.display = 'block';
-        registerFields.style.display = 'none';
-        pageTitle.textContent = 'התחברות';
-        switchMode.innerHTML = 'אין לך חשבון? <a href="#" id="register-link">הרשם כאן</a>';
-    } else {
-        loginFields.style.display = 'none';
-        registerFields.style.display = 'block';
-        pageTitle.textContent = 'הרשמה';
-        switchMode.innerHTML = 'כבר יש לך חשבון? <a href="#" id="login-link">התחבר כאן</a>';
-    }
+// הצגת תצוגת הרשמה
+switchToRegister.addEventListener('click', () => {
+    loginContainer.style.display = 'none';
+    registerContainer.style.display = 'block';
+});
+
+// הצגת תצוגת התחברות
+switchToLogin.addEventListener('click', () => {
+    registerContainer.style.display = 'none';
+    loginContainer.style.display = 'block';
 });

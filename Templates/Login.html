@@ -21,29 +21,24 @@
 
     <main>
         <div class="login-container">
-            <h2 id="page-title">התחברות</h2>
-            <form id="login-form">
-                <!-- שדות התחברות -->
-                <div id="login-fields">
-                    <input type="email" placeholder="שם משתמש" required>
-                    <input type="password" placeholder="סיסמה" required>
-                    <button type="submit">התחבר</button>
-                    <a href="#" id="forgot-password">שכחתי סיסמה</a>
-                </div>
-
-                <!-- שדות הרשמה -->
-                <div id="register-fields" style="display: none;">
-                    <input type="text" placeholder="שם מלא" required>
-                    <input type="email" placeholder="כתובת אימייל" required>
-                    <input type="password" placeholder="סיסמה" required>
-                    <button type="submit">הרשם</button>
-                </div>
+            <h2>התחברות</h2>
+            <form id="login-form" action="/login" method="POST">
+                <input type="text" name="username" placeholder="שם משתמש" required>
+                <input type="password" name="password" placeholder="סיסמה" required>
+                <button type="submit">התחבר</button>
             </form>
-
-            <!-- מעבר בין התחברות להרשמה -->
-            <p id="switch-mode">
-                אין לך חשבון? <a href="#" id="register-link">הרשם כאן</a>
-            </p>
+            <p>אין לך חשבון? <a href="#" id="switch-to-register">הרשם כאן</a></p>
+        </div>
+    
+        <div class="register-container" style="display: none;">
+            <h2>הרשמה</h2>
+            <form id="register-form" action="/register" method="POST">
+                <input type="text" name="name" placeholder="שם מלא" required>
+                <input type="text" name="username" placeholder="שם משתמש" required>
+                <input type="password" name="password" placeholder="סיסמה" required>
+                <button type="submit">הרשם</button>
+            </form>
+            <p>יש לך חשבון? <a href="#" id="switch-to-login">התחבר כאן</a></p>
         </div>
     </main>
 
