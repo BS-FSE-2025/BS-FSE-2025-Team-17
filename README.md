@@ -4,3 +4,5 @@ packages to install:
 npm install express
 
 npm install sqlite3
+
+#npm install node
