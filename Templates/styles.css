@@ -1,0 +1,80 @@
+#calculator-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-image: url('cal.img.webp'); 
+    background-size: 100% 100%; 
+    background-position: center;
+    background-repeat: no-repeat; 
+    border-radius: 50%; 
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+
+#calculator-icon img {
+    width: 30px;
+    height: 30px;
+}
+
+#calculator-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 280px; 
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    z-index: 1000;
+}
+#calculator-modal button {
+    margin: 5px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+#calc-display {
+    width: calc(100% - 10px); 
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: right;
+    padding: 5px; 
+    border: 1px solid #ddd; 
+    border-radius: 4px;
+}
+#calc-buttons button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#calc-buttons button:hover {
+    background-color: #e0e0e0;
+}
+#calc-buttons {
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    grid-template-rows: repeat(4, 1fr); 
+    gap: 5px; 
+}

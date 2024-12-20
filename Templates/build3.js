@@ -2,9 +2,9 @@ async function fetchSuppliers(type, apiEndpoint, containerId) {
     try {
         const response = await fetch(apiEndpoint); // שליחת בקשה לשרת
         if (!response.ok) {
-            throw new Error(`שגיאה בשליפת ${type}`);
+            console.error(`שגיאה בשליפת ${type}: ${response.statusText}`);
+            return; // סיים את הפונקציה בשקט
         }
-
         const suppliers = await response.json();
         displaySuppliers(suppliers, containerId, type); // הצגת כל הספקים כברירת מחדל
 
@@ -14,7 +14,7 @@ async function fetchSuppliers(type, apiEndpoint, containerId) {
         });
     } catch (error) {
         console.error('Error:', error.message);
-        alert(`שגיאה בטעינת ${type}`);
+        return;
     }
 }
 
