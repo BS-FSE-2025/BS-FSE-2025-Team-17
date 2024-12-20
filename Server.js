@@ -107,6 +107,40 @@ app.get('/get-grooms', (req, res) => fetchFromTable(res, 'Grooms clothes'));
 app.get('/get-Arrival_confirmation_companies', (req, res) => fetchFromTable(res, 'Arrival confirmation companies'));
 app.get('/get-makeup', (req, res) => fetchFromTable(res, 'Makeup')); // מאפרת
 
+// הוספת נתיב POST להזנת נתונים לטבלת Contact // שחר שים לב! מכאן הוספתי בדף הזה
+app.post('/submitContact', (req, res) => {
+    const { name, contact, information } = req.body;
+
+    // בדיקה אם כל השדות מולאו
+    if (!name || !contact || !information) {
+        return res.status(400).json({ message: 'יש למלא את כל השדות הנדרשים' });
+    }
+
+    // חיבור למסד הנתונים
+    const dbPath = path.join(__dirname, 'DataBase', 'Data.db');
+    const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
+        if (err) {
+            console.error('שגיאה בפתיחת מסד הנתונים:', err.message);
+            return res.status(500).json({ message: 'שגיאה במסד הנתונים' });
+        }
+    });
+
+    // הכנסת הנתונים לטבלת Contact
+    const query = `INSERT INTO Contact (Name, Contact, Information) VALUES (?, ?, ?)`;
+    db.run(query, [name, contact, information], function (err) {
+        if (err) {
+            console.error('שגיאה בהכנסת הנתונים:', err.message); // מדפיס הודעה ברורה
+            return res.status(500).json({ message: 'שגיאה בהכנסת הנתונים' });
+        }
+        res.status(200).json({ message: 'הנתונים נשמרו בהצלחה', id: this.lastID });
+    });
+    
+    db.close();
+});
+// שחר שים לב - כאן הפסקתי!
+
+
+
 // טיפול בשגיאות
 app.use((req, res, next) => {
     res.status(404).send('עמוד לא נמצא');

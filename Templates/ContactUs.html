@@ -24,7 +24,7 @@
     
     
     <u><h1 id="Big_Title" >יצירת קשר</h1></u>
-    <form id="contact_form">
+    <form id="contact_form" method="POST" action="/submitContact">
         <!-- שדות יצירת קשר -->
         <div id="contact-fields">
             <subject for="name">שם:</subject>
@@ -40,7 +40,7 @@
         <button id="submit">שלח בקשה</button>
     </form>
     <h3 id="ContactUs">דברו איתנו :)</h3>
-    <img src="SMILEY.JPEG" width="60" height="50" alt="talkwithus">
+    <img src="SMILEY.JPEG" width="80" height="60" alt="talkwithus">
     
 
 </body>
@@ -49,36 +49,30 @@
     <p>&copy; Event Planning 2024</p>
 </footer>
 </html>
-
-<!-- סקריפט לשליחת הנתונים -->
+<!--Costumer Script-->
 <script>
-    document.getElementById('contact_form').addEventListener('submit', async function (event) {
-        event.preventDefault(); // מניעת טעינת הדף
-    
-        // איסוף הנתונים מהטופס
-        const name = document.getElementById('name').value;
-        const phone_number = document.getElementById('phone_number').value;
-        const content = document.getElementById('content').value;
-    
-        try {
-            // שליחת הנתונים לשרת
-            const response = await fetch('/submit_contact_form', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ name, phone_number, content })
-            });
-    
-            const result = await response.json();
-            if (response.ok) {
-                alert('הפנייה נשלחה בהצלחה!');
-            } else {
-                alert('שגיאה: ' + result.message);
-            }
-        } catch (error) {
-            console.error('שגיאה בשליחת הפנייה:', error);
-            alert('אירעה שגיאה. נסה שנית.');
-        }
+document.getElementById("contact_form").addEventListener("submit", async function (event) {
+    event.preventDefault(); // למנוע ריענון דף בעת שליחה
+
+    const name = document.getElementById("name").value;
+    const contact = document.getElementById("phone_number").value;
+    const information = document.getElementById("content").value;
+
+    const response = await fetch("/submitContact", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, contact, information }),
     });
-    </script>
+
+    if (response.ok) {
+        alert("הפנייה נשלחה בהצלחה!");
+        document.getElementById("contact_form").reset();
+    } else {
+        alert("חלה שגיאה בשליחת הפנייה. אנא נסה שנית.");
+    }
+});
+</script>
+
+
