@@ -96,7 +96,7 @@ function displaySuppliers(suppliers, containerId, type) {
             <div class="card-body">
                 <h5 class="card-title">${supplier['שם'] || 'לא זמין'}</h5>
                 ${additionalDetails}
-                <a href="#" class="btn btn-primary">בחירה</a>
+                <a href=/Templates/cart.html class="btn btn-primary">בחירה</a>
             </div>
         `;
         container.appendChild(card);
