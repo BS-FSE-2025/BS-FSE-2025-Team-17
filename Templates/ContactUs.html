@@ -1,24 +1,84 @@
 <!DOCTYPE html>
-<link rel="stylesheet" href="ContactUs.css">
+<html lang="he">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>יצירת קשר</title>
-    <h1>
-        יצירת קשר
-    </h1>
+    <link rel="stylesheet" href="ContactUs.css">
 </head>
+<body>
+    <!-- תפריט ניווט (חלק משותף לכל הדפים) -->
+    <header>
+        <nav>
+            <ul class="navbar">
+                <li><a href="HomePage.html"><img src="12.png" alt="לוגו" class="logo"></a></li>
+                <li><a href="HomePage.html">דף הבית</a></li>
+                <li><a href="we.html">איך משתמשים?</a></li>
+                <li><a href="ContactUs.html">צור קשר</a></li>
+                <li><a href="Login.html">התחברות/הרשמה</a></li>
+            </ul>
+        </nav>
+    </header>
 
 <body>
-    <h1 id = "title">צור קשר</h1>
+    
+    
+    <u><h1 id="Big_Title" >יצירת קשר</h1></u>
     <form id="contact_form">
         <!-- שדות יצירת קשר -->
         <div id="contact-fields">
-            <input type="name" placeholder="שם" required>
-            <input type="Phone number" placeholder="מספר טלפון" required>
-            <input type="Subject" placeholder="נושא הפנייה" required>
-            <button type="Send">שלח בקשה</button>
+            <subject for="name">שם:</subject>
+            <input type="text" id="name" placeholder="הזן את השם שלך כאן:" required>
+            
+            <subject for="phone_number">טלפון:</subject>
+            <input type="tel" id="phone_number" placeholder="הזן את מספר הטלפון/הדוא''ל שלך כאן:" required>
+            
+            <subject for="content">תוכן הפנייה:</subject>
+            <textarea id="content" placeholder="הזן את תוכן הפנייה שלך כאן:" rows="5" required></textarea>
+            
         </div>
+        <button id="submit">שלח בקשה</button>
+    </form>
+    <h3 id="ContactUs">דברו איתנו :)</h3>
+    <img src="SMILEY.JPEG" width="60" height="50" alt="talkwithus">
+    
+
 </body>
 
 <footer>
-    <p>&copy;Event Planning 2024</p>
+    <p>&copy; Event Planning 2024</p>
 </footer>
+</html>
+
+<!-- סקריפט לשליחת הנתונים -->
+<script>
+    document.getElementById('contact_form').addEventListener('submit', async function (event) {
+        event.preventDefault(); // מניעת טעינת הדף
+    
+        // איסוף הנתונים מהטופס
+        const name = document.getElementById('name').value;
+        const phone_number = document.getElementById('phone_number').value;
+        const content = document.getElementById('content').value;
+    
+        try {
+            // שליחת הנתונים לשרת
+            const response = await fetch('/submit_contact_form', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, phone_number, content })
+            });
+    
+            const result = await response.json();
+            if (response.ok) {
+                alert('הפנייה נשלחה בהצלחה!');
+            } else {
+                alert('שגיאה: ' + result.message);
+            }
+        } catch (error) {
+            console.error('שגיאה בשליחת הפנייה:', error);
+            alert('אירעה שגיאה. נסה שנית.');
+        }
+    });
+    </script>
