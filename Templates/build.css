@@ -105,7 +105,7 @@ button:hover {
 
 #selection h2 {
     margin-bottom: 20px;
-    color: #007bff;
+    color: black;
     font-size: 1.5rem;
 }
 
@@ -124,14 +124,18 @@ input[type="text"] {
 }
 
 button {
-    background-color: #007bff;
+    background-color: black;
     color: white;
     border: none;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: black;
+    background-color: rgb(192, 222, 255);
+    padding: 10px 30px;
+}
+button:active {
+    transform: scale(0.95);
 }
 
 /* כרטיסים */
@@ -184,8 +188,14 @@ button:hover {
 }
 
 .btn:hover {
-    background-color: black;
+    background-color:rgb(192, 222, 255);
+    
     text-decoration: none;
+}
+
+.btn:active {
+    padding: 10px 20px;
+    transform: scale(0.95);
 }
 
 /* גלילה מותאמת אישית */

@@ -27,7 +27,7 @@
     transform: translate(-50%, -50%);
     width: 280px; 
     background-color: white;
-    border: 1px solid white;
+    border: 1px solid black;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 20px;
@@ -58,6 +58,7 @@
     padding: 5px; 
     border: 1px solid #ddd; 
     border-radius: 4px;
+    color: black;
 }
 #calc-buttons button {
     padding: 10px;
@@ -67,6 +68,7 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
+    color: black;
 }
 
 #calc-buttons button:hover {
