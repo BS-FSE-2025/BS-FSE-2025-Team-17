@@ -2,23 +2,53 @@ const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const bodyParser = require('body-parser');
 const path = require('path');
+const session = require('express-session');
 
 const app = express();
 const PORT = 3000;
 
-// משתמש אדמין מוגדר מראש
 const adminUsername = "admin1"; // שם משתמש של האדמין
 const adminPassword = "123456"; // סיסמת האדמין
 
-// מידלוור
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'Templates')));
 app.use(express.static(__dirname));
+app.use(session({
+    secret: 'yourSecretKey', // מפתח סודי להצפנה
+    resave: false,
+    saveUninitialized: true
+}));
 
 // נתיב ראשי
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'Templates', 'HomePage.html'));
+});
+//הרשמה
+app.post('/register', (req, res) => {
+    const { Name, UserName, Email, Password } = req.body;
+
+    if (!Name || !UserName || !Email || !Password) {
+        return res.status(400).json({ message: 'יש למלא את כל השדות הנדרשים' });
+    }
+
+    const db = new sqlite3.Database('./DataBase/Data.db', sqlite3.OPEN_READWRITE, (err) => {
+        if (err) {
+            console.error('שגיאה בפתיחת מסד הנתונים:', err.message);
+            return res.status(500).json({ message: 'שגיאה במסד הנתונים' });
+        }
+    });
+
+    const query = 'INSERT INTO Users (Name, UserName, Email, Password) VALUES (?, ?, ?, ?)';
+    db.run(query, [Name, UserName, Email, Password], function (err) {
+        if (err) {
+            console.error('שגיאה בהוספת המשתמש:', err.message);
+            return res.status(500).json({ message: 'שגיאה בהוספת המשתמש' });
+        }
+        res.status(200).json({ message: 'הרשמה בוצעה בהצלחה', id: this.lastID });
+    });
+
+    db.close();
 });
 
 // התחברות
@@ -30,19 +60,19 @@ app.post('/login', (req, res) => {
     }
 
     if (username === adminUsername && password === adminPassword) {
+        req.session.username = username;
+        req.session.isAdmin = true; // הגדרת המשתמש כאדמין
         return res.redirect('/admin');
     }
 
-    // חיבור למסד הנתונים
-    const db = new sqlite3.Database(path.join(__dirname, 'DataBase', 'Data.db'), sqlite3.OPEN_READWRITE, (err) => {
+    const db = new sqlite3.Database('./DataBase/Data.db', sqlite3.OPEN_READWRITE, (err) => {
         if (err) {
-            console.error('שגיאה בפתיחת מסד נתונים:', err.message);
+            console.error('שגיאה בפתיחת מסד הנתונים:', err.message);
             return res.status(500).json({ message: 'שגיאה במסד הנתונים' });
         }
     });
 
-    // בדיקת משתמש רגיל
-    const query = 'SELECT * FROM Users WHERE userName = ? AND password = ?';
+    const query = `SELECT * FROM Users WHERE UserName = ? AND Password = ?`;
     db.get(query, [username, password], (err, row) => {
         if (err) {
             console.error('שגיאה בבדיקת משתמש:', err.message);
@@ -50,13 +80,41 @@ app.post('/login', (req, res) => {
         }
 
         if (row) {
-            return res.redirect('/user');
+            req.session.username = row.Name; // שמירת השם המלא
+            req.session.isAdmin = false; // המשתמש אינו אדמין
+            res.redirect('/user');
         } else {
-            return res.status(401).json({ message: 'שם משתמש או סיסמה שגויים' });
+            res.status(401).json({ message: 'שם משתמש או סיסמה שגויים' });
         }
     });
 
-    db.close();
+    db.close((err) => {
+        if (err) {
+            console.error('שגיאה בסגירת מסד הנתונים:', err.message);
+        }
+    });
+});
+
+
+
+app.get('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            console.error('שגיאה בניתוק:', err.message);
+            return res.status(500).json({ message: 'שגיאה בניתוק' });
+        }
+        res.redirect('/out'); // חזרה לדף הבית לאחר התנתקות
+    });
+});
+app.get('/get-session', (req, res) => {
+    if (req.session.username) {
+        res.json({
+            username: req.session.username,
+            isAdmin: req.session.isAdmin || false, // ודא שהמאפיין נשלח
+        });
+    } else {
+        res.json({ username: null, isAdmin: false });
+    }
 });
 
 // דף אדמין
@@ -68,8 +126,11 @@ app.get('/admin', (req, res) => {
 app.get('/user', (req, res) => {
     res.sendFile(path.join(__dirname, 'Templates', 'HomePage.html'));
 });
+app.get('/out', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Templates', 'HomePage.html'));
+});
 
-// פונקציה כללית לשליפת נתונים מטבלה
+// פונקציה עבור כל טבלה לשליפת נתונים מטבלה
 function fetchFromTable(res, tableName) {
     const dbPath = path.join(__dirname, 'DataBase', 'Data.db');
     const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READONLY, (err) => {
@@ -96,7 +157,7 @@ function fetchFromTable(res, tableName) {
     });
 }
 
-// נתיבים כלליים לשליפת נתונים
+// נתיבים לשליפת נתונים
 app.get('/get-halls', (req, res) => fetchFromTable(res, 'Hall'));
 app.get('/get-photographers', (req, res) => fetchFromTable(res, 'photos'));
 app.get('/get-djs', (req, res) => fetchFromTable(res, 'DJ'));
@@ -138,8 +199,6 @@ app.post('/submitContact', (req, res) => {
     db.close();
 });
 // שחר שים לב - כאן הפסקתי!
-
-
 
 // טיפול בשגיאות
 app.use((req, res, next) => {

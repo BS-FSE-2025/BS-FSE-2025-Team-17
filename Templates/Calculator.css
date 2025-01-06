@@ -1,22 +1,29 @@
 #calculator-icon {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background-image: url('cal.img.webp'); 
-    background-size: 100% 100%; 
-    background-position: center;
-    background-repeat: no-repeat; 
-    border-radius: 50%; 
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    bottom: 20px; /* מרחק מהתחתית */
+    right: 20px; /* מרחק מהימין */
+    width: 60px; /* התאמה לגובה האייקון השני */
+    height: 60px; /* התאמה לרוחב האייקון השני */
+    border: none; 
+    border-radius: 50%; /* עיגול מושלם */
+    background-color: black; /* צבע רקע */
+    display: flex;
+    align-items: center; /* ממרכז את האייקון אנכית */
+    justify-content: center; /* ממרכז את האייקון אופקית */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* צל לתלת ממדיות */
+    cursor: pointer; /* סמן לחיץ */
+    outline: none;
+    transition: transform 0.2s ease-in-out; /* אפקט מעבר */
 }
 
+#calculator-icon i {
+    font-size: 36px; /* גודל האייקון */
+    color: white; /* צבע האייקון */
+}
 
-#calculator-icon img {
-    width: 30px;
-    height: 30px;
+#calculator-icon:hover {
+    transform: scale(1.1); /* אפקט הגדלה קל */
+    background-color: #333; /* שינוי צבע רקע בעת ריחוף */
 }
 
 #calculator-modal {

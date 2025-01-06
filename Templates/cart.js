@@ -1,93 +1,96 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const cartItems = [];
+    const cart = [];
     const cartList = document.getElementById('cart-items');
     const cartTotal = document.getElementById('cart-total');
-    const cart = document.getElementById('cart');
-    const cartIconLeftButton = document.getElementById('cart-icon-left-button');
-    const exceedWarning = document.getElementById('exceed-warning');
-    const checkoutButton = document.getElementById('checkout-button');
+    const cartIconButton = document.getElementById('cart-icon-left-button');
+    const cartContainer = document.getElementById('cart');
+    
+    document.getElementById('event-budget').addEventListener('input', checkBudget);
 
-    // התקציב מוזן בלשונית אחרת - דוגמה: קלט עם id="budget-input"
-    const budgetInput = document.getElementById('budget-input');
 
-    const addToCartButtons = document.querySelectorAll('.add-to-cart');
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const itemElement = button.parentElement;
-            const name = itemElement.getAttribute('data-name');
-            const price = parseFloat(itemElement.getAttribute('data-price'));
+    // האזנה לאירוע לחיצה על כפתור "הוסף לעגלה"
+    document.body.addEventListener('click', event => {
+        if (event.target.classList.contains('add-to-cart')) {
+            const name = event.target.getAttribute('data-name');
+            const price = parseFloat(event.target.getAttribute('data-price'));
+            const pricetotal = parseFloat(event.target.getAttribute('data-pricetotal'));
 
-            const item = { name, price, id: Date.now() };
-            cartItems.push(item);
-
-            updateCartUI();
-        });
+            // הוספת פריט עם המחיר הכולל (pricetotal) אם קיים, אחרת המחיר הבסיסי
+            addToCart({ name, price: !isNaN(pricetotal) ? pricetotal : price });
+        }
     });
 
-    if (!cart) {
-        console.error('שגיאה: האלמנט של העגלה (id="cart") לא נמצא!');
+    // הצגת/הסתרת עגלת הקניות
+    cartIconButton.addEventListener('click', () => {
+        cartContainer.classList.toggle('hidden');
+    });
+
+    // הוספת פריט לעגלה
+    function addToCart(item) {
+        cart.push(item);
+        updateCart();
+    }
+    function checkBudget() {
+        // קבלת הערכים מהתקציב ומהסה"כ
+        const budgetInput = document.getElementById('event-budget');
+        const budget = parseFloat(budgetInput.value) || 0; // תקציב שהוזן, ברירת מחדל 0
+        const cartTotalElement = document.getElementById('cart-total');
+        const total = parseFloat(cartTotalElement.textContent.replace(/,/g, '')) || 0; // הסה"כ
+    
+        // קבלת אלמנט ההודעה
+        const budgetWarning = document.getElementById('budget-warning');
+    
+        // בדיקת חריגה מהתקציב
+        if (budget > 0 && total > budget) {
+            cartTotalElement.style.color = 'red'; // צבע אדום לסה"כ
+            budgetWarning.style.display = 'block'; // הצגת הודעה
+            budgetWarning.textContent = 'חרגת מהתקציב שהקצאת!';
+        } else {
+            cartTotalElement.style.color = 'black'; // צבע שחור לסה"כ
+            budgetWarning.style.display = 'none'; // הסתרת ההודעה
+        }
     }
 
-    if (!cartIconLeftButton) {
-        console.error('שגיאה: האלמנט של כפתור אייקון העגלה (id="cart-icon-left-button") לא נמצא!');
-    }
-
-    if (cart && cartIconLeftButton) {
-        cartIconLeftButton.addEventListener('click', () => {
-            cart.classList.toggle('hidden');
-            console.log(cart.classList.contains('hidden') ? "העגלה כעת מוסתרת." : "העגלה כעת מוצגת.");
-        });
-    } else {
-        console.error('לא ניתן להפעיל את הפעולה כי אחד האלמנטים חסר.');
-    }
-
-    function updateCartUI() {
-        cartList.innerHTML = '';
+    // עדכון עגלת הקניות
+    function updateCart() {
+        cartList.innerHTML = ''; // נקה את רשימת העגלה
         let total = 0;
 
-        cartItems.forEach(item => {
-            total += item.price;
+        // קבלת כמות האנשים
+        const peopleCountInput = document.getElementById('people-count');
+        const peopleCount = parseInt(peopleCountInput.value) || 1;
 
-            const listItem = document.createElement('li');
-            listItem.textContent = `${item.name} - ₪${item.price}`;
+        // יצירת פריטים בעגלה
+        cart.forEach(item => {
+            total += item.price; // חישוב הסכום הכולל
+
+            const li = document.createElement('li');
+            li.textContent = `${item.name} - ₪${item.price.toLocaleString('he-IL')}`;
 
             const removeButton = document.createElement('button');
+            removeButton.className = 'remove';
             removeButton.textContent = 'הסר';
-            removeButton.classList.add('remove');
             removeButton.addEventListener('click', () => {
-                removeFromCart(item.id);
+                removeFromCart(item);
             });
 
-            listItem.appendChild(removeButton);
-            cartList.appendChild(listItem);
+            li.appendChild(removeButton);
+            cartList.appendChild(li);
         });
 
-        cartTotal.textContent = total.toFixed(2);
-
-        const budget = parseFloat(budgetInput?.value) || 0;
-        if (total > budget) {
-            exceedWarning.style.display = 'block';
-            cartTotal.style.color = 'red';
-            checkoutButton.style.display = 'none';
-        } else {
-            exceedWarning.style.display = 'none';
-            cartTotal.style.color = 'black';
-            checkoutButton.style.display = 'block';
-        }
-
-        if (cartItems.length === 0) {
-            cart.classList.add('hidden');
-        } else {
-            cart.classList.remove('hidden');
-        }
+        // עדכון סה"כ עם פורמט פסיקים
+        cartTotal.textContent = total.toLocaleString('he-IL');
+        checkBudget();
     }
 
-    function removeFromCart(id) {
-        const index = cartItems.findIndex(item => item.id === id);
+    // הסרת פריט מהעגלה
+    function removeFromCart(item) {
+        const index = cart.findIndex(i => i.name === item.name && i.price === item.price);
         if (index > -1) {
-            cartItems.splice(index, 1);
-            updateCartUI();
+            cart.splice(index, 1);
+            updateCart();
         }
     }
 });
+
 

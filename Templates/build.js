@@ -41,9 +41,15 @@ function displaySuppliers(suppliers, containerId, type) {
         // התאמת הפרטים להצגה לפי סוג הספק
         if (type === 'אולמות') 
         {
-            additionalDetails = `
+            const peopleCountInput = document.getElementById('people-count');
+            const peopleCount = parseInt(peopleCountInput.value) || 1; // ברירת מחדל: 1
+
+            // חישוב המחיר הכולל
+            const totalPrice = supplier['מחיר'] * peopleCount;
+                additionalDetails = `
                 <p class="card-text">עיר: ${supplier['עיר']}</p>
                 <p class="card-text">מחיר למנה: ${supplier['מחיר']} ש"ח</p>
+                <p class="card-text">מחיר כולל: ${totalPrice} ש"ח</p>
             `;
         } 
         else if (type === 'בר שתייה') 
@@ -61,25 +67,25 @@ function displaySuppliers(suppliers, containerId, type) {
             } 
                 
         else if (type === 'צלמים') {
-            additionalDetails = `
+                additionalDetails = `
                 <p class="card-text">מחיר: ${supplier['מחיר']} ש"ח</p>
             `;
         } else if (type === 'תקליטנים') {
-            additionalDetails = `
+                additionalDetails = `
                 <p class="card-text">עיר: ${supplier['עיר']}</p>
                 <p class="card-text">סגנון מוזיקלי: ${supplier['סגנון מוזיקלי ']}</p>
                 <p class="card-text">מחיר: ${supplier['מחיר']} ש"ח</p>
             `;
         } else if (type === 'בגדי חתן' || type === 'בגדי כלה') {
-            additionalDetails = `
+                additionalDetails = `
                 <p class="card-text">עיר: ${supplier['עיר']}</p>
-                <p class="card-text">מחיר למנה: ${supplier['מחיר']} ש"ח</p>
+                <p class="card-text">מחיר: ${supplier['מחיר']} ש"ח</p>
             `;
             
         } else if (type === 'מאפרת') {
-            additionalDetails = `
+                additionalDetails = `
                 <p class="card-text">עיר: ${supplier['עיר']}</p>
-                <p class="card-text">מחיר למנה: ${supplier['מחיר']} ש"ח</p>
+                <p class="card-text">מחיר: ${supplier['מחיר']} ש"ח</p>
             `;
             
         }
@@ -88,25 +94,30 @@ function displaySuppliers(suppliers, containerId, type) {
                 additionalDetails = `
                 <p class="card-text">עיר: ${supplier['עיר']}</p>
                 <p class="card-text">התמחות: ${supplier['התמחות']}</p>
-                <p class="card-text">מחיר למנה: ${supplier['מחיר']} ש"ח</p>
+                <p class="card-text">מחיר: ${supplier['מחיר']} ש"ח</p>
                 `;
             } 
 
-        card.innerHTML = `
+            card.innerHTML = `
             <div class="card-body">
-                <h5 class="card-title">${supplier['שם'] || 'לא זמין'}</h5>
+                <h5 class="card-title">${supplier['שם']}</h5>
                 ${additionalDetails}
-                <a href=/Templates/cart.html class="btn btn-primary">בחירה</a>
+                <button class="btn btn-primary add-to-cart" 
+                        data-name="${supplier['שם']}"
+                        data-price="${
+                            type === 'אולמות' 
+                                ? supplier['מחיר'] * (parseInt(document.getElementById('people-count').value) || 1)
+                                : supplier['מחיר']
+                        }">
+                    בחירה
+                </button>
             </div>
         `;
-        container.appendChild(card);
+        
+container.appendChild(card);
+
     });
 }
-
-
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
     // קריאה גנרית לכל הספקים
     fetchSuppliers('אולמות', '/get-halls', 'halls-container');
@@ -119,8 +130,3 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchSuppliers('מאפרת', '/get-makeup', 'makeup-container');
     fetchSuppliers('חברות אישורי הגעה', '/get-Arrival_confirmation_companies', 'confirmation-container');
 });
-
-
-
-
-

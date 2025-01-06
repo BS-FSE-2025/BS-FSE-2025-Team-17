@@ -6,7 +6,13 @@
     <title>בניית אירוע</title>
     <link rel="stylesheet" href="build.css">
     <link rel="stylesheet" href="Calculator.css">
+    <link rel="stylesheet" href="cart.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="session.js" defer></script>
 </head>
+
+
+
 <body>
     <header>
         <nav>
@@ -15,7 +21,7 @@
                 <li><a href="HomePage.html">דף הבית</a></li>
                 <li><a href="we.html">איך משתמשים?</a></li>
                 <li><a href="ContactUs.html">צור קשר</a></li>
-                <li><a href="Login.html">התחברות/הרשמה</a></li>
+                <li id="user-menu"></li>
             </ul>
         </nav>
     </header>
@@ -33,11 +39,12 @@
                 </select>
                 <div>
                     <label for="people-count">כמות אנשים:</label>
-                    <input id="people-count" type="text" required>
+                    <input id="people-count" type="number"min="1" required placeholder="הזן כמות אנשים">
                 </div>
                 <div>
                     <label for="event-budget">תקציב האירוע:</label>
-                    <input id="event-budget" type="text" required>
+                    <input id="event-budget" type="number" min="1" required placeholder="הזן תקציב">
+
                 </div>
                 <button id="search-button">חיפוש</button>
             </div>
@@ -46,6 +53,7 @@
         <!-- תוצאות חיפוש -->
         <section id="cards" class="section">
             <h1>תוצאות החיפוש</h1>
+            <h2>אולמות</h2>
             <section id="halls-container" class="card-container"></section>
             <h2>צלמים</h2>
             <section id="photos-container" class="card-container"></section>
@@ -66,8 +74,30 @@
         </section>
     </main>
 
+        <!-- הוספת אייקון עגלת קניות -->
+    <div class="cart-icon-left">
+        <button id="cart-icon-left-button">
+            <span class="material-icons">assignment</span>
+        </button>
+    </div>
+
+    <div class="cart hidden" id="cart">
+        <h2>האירוע שלך</h2>
+        <div class="cart-items-wrapper">
+            <ul id="cart-items"></ul>
+        </div>
+        <div class="cart-total-wrapper">
+            <p>סה"כ: ₪<span id="cart-total">0</span></p>
+            <div id="budget-warning" style="color: red; display: none; font-weight: bold;"></div>
+            <button id="checkout-button" class="checkout-button">ייצא לקובץ PDF</button>
+        </div>
+    </div>
+    
+
     <!-- אייקון מחשבון -->
-    <div id="calculator-icon" onclick="openCalculator()"></div>
+    <div id="calculator-icon" onclick="openCalculator()">
+        <i class="material-icons">calculate</i>
+    </div>
 
     <!-- שכבת רקע -->
     <div id="overlay" onclick="closeCalculator()"></div>
@@ -96,6 +126,7 @@
             <button onclick="setOperation('+')">+</button>
         </div>
     </div>
+    
 
     <footer>
         <p>&copy; Event Planning 2024</p>
@@ -103,5 +134,7 @@
 
     <script src="build.js"></script>
     <script src="cal.js"></script>
+    <script src="cart.js"></script>
+
 </body>
 </html>

@@ -1,15 +1,16 @@
 body {
-    margin: 0;
     font-family: Arial, sans-serif;
-    line-height: 1.6;
-    direction: rtl;
-    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #000; /* רקע כהה */
+    color: #fff; /* טקסט לבן */
+    box-sizing: border-box; /* מכיל מרווחים בגבולות */
 }
 
 header {
     background-color: black;
     color: #fff;
-    padding: 5px;
+    padding: 10px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -17,10 +18,10 @@ header {
 
 /* לוגו */
 .logo {
-    height: 50px;
-    width: auto;
-    vertical-align: middle;
-    margin-right: 10px;
+    height: 50px; /* גובה הלוגו */
+    width: auto; /* התאמה יחסית לרוחב */
+    vertical-align: middle; /* מיישר את הלוגו עם שאר הקישורים */
+    margin-right: 10px; /* רווח בין הלוגו לקישורים */
 }
 
 /* תפריט ניווט */
@@ -29,9 +30,9 @@ header {
     padding: 0;
     margin: 0;
     display: flex;
-    align-items: center;
+    align-items: center; /* מיישר את הפריטים למרכז אנכי */
     justify-content: center;
-    gap: 15px;
+    gap: 15px; /* רווח בין הפריטים */
 }
 
 .navbar li {
@@ -41,7 +42,7 @@ header {
 .navbar a {
     color: #fff;
     text-decoration: none;
-    padding: 20px;
+    padding: 10px 20px;
     transition: background-color 0.3s;
 }
 
@@ -49,120 +50,89 @@ header {
     background-color: #575757;
     border-radius: 5px;
 }
-body {
-    color:white;
-}
-/* אזור התוכן */
+
 main {
-    padding: 20px;
-}
-
-.section {
-    margin: 20px 0;
-}
-
-h1, h2 {
-    margin-bottom: 5px;
-    color:black;
-}
-
-/* תחתית העמוד */
-footer {
-    background-color: black;
-    color: #fff;
-    padding: 10px 0;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-}
-/* כפתור */
-.plan-event-button {
-    background-color: black;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 15px 30px;
-    font-size: 20px;
-    cursor: pointer;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-
-.plan-event-button:hover {
-    background-color: rgb(192, 222, 255);
-    transform: scale(1.05);
-}
-
-.plan-event-button:active {
-    transform: scale(0.95);
-}
-
-/* סגנון מרכזי לדף הבית */
-#home {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #f4f4f4;
+    min-height: calc(100vh - 60px); /* גובה המסך פחות גובה התפריט */
+    background-image: url('55.png');
+    background-size: cover; /* התמונה מתפרשת באופן מלא */
+    background-position: center; /* מרכז את התמונה */
 }
 
-עיצוב עמוד התחברות 
 .login-container {
-    max-width: 400px;
-    margin: 100px auto;
-    padding: 20px;
-    background: #f9f9f9;
+    background-color: #111;
+    padding: 30px 40px;
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    width: 90%; /* מתאים למסכים קטנים */
+    max-width: 350px; /* מגביל את הרוחב המרבי */
     text-align: center;
 }
 
-h2 {
+.login-container h2 {
     margin-bottom: 20px;
-    color: #333;
+    font-size: 24px;
+    font-weight: bold;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+form label {
+    display: block;
+    text-align: right;
+    margin-bottom: 5px;
     font-size: 14px;
 }
 
-button {
+form input {
+    width: 100%;
     padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background-color: #222;
+    color: #fff;
+    font-size: 14px;
+}
+
+form input::placeholder {
+    color: #aaa;
+}
+
+form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #444;
+    color: #fff;
     border: none;
     border-radius: 5px;
-    background-color: black;
-    color: white;
+    font-size: 16px;
+    cursor: not-allowed;
+}
+
+form button.active {
+    background-color: #007bff;
     cursor: pointer;
-    transition: background-color 0.3s;
 }
 
-button:hover {
-    background-color: #2bb4ee;
+form button:hover.active {
+    background-color: #0056b3;
 }
 
-a {
-    text-decoration: none;
-    color: #007BFF;
-    font-size: 14px;
+.required {
+    color: red;
+    font-size: 12px;
+    margin-left: 5px;
 }
 
-a:hover {
-    text-decoration: underline;
-}
+/* רספונסיביות */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+    }
 
-#switch-mode {
-    margin-top: 15px;
-    font-size: 14px;
-    color: #555;
+    .login-container {
+        padding: 20px 30px;
+    }
 }
