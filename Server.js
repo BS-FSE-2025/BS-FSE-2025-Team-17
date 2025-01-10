@@ -158,6 +158,8 @@ function fetchFromTable(res, tableName) {
         }
     });
 }
+
+
 // תיקון בנתיב המחיקה למחיקת משתמש לפי ID
 app.delete('/delete-user/:id', (req, res) => {
     const userId = req.params.id; // קבלת מזהה המשתמש
@@ -186,10 +188,6 @@ app.delete('/delete-user/:id', (req, res) => {
 
     db.close();
 });
-
-
-
-
 
 
 app.get('/get-users', (req, res) => fetchFromTable(res, 'Users'));
@@ -234,6 +232,12 @@ app.post('/submitContact', (req, res) => {
     db.close();
 });
 // שחר שים לב - כאן הפסקתי!
+
+app.post('/add-supplier', (req, res) => {
+    const { שם, איזור, עיר, מחיר, התמחות, 'סגנון מוזיקלי': style } = req.body;
+    // פה תוכל להוסיף שדות מותאמים לכל סוג ספק בהתאם לשדות שהגדרת
+});
+
 
 // טיפול בשגיאות
 app.use((req, res, next) => {

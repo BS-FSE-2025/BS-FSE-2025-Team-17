@@ -1,89 +1,143 @@
-// document.addEventListener('DOMContentLoaded', () => {
-//     const supplierTypeSelect = document.getElementById('supplier-type');
-//     const loadSuppliersBtn = document.getElementById('load-suppliers-btn');
-//     const suppliersTable = document.getElementById('suppliers-table');
-//     const tableBody = suppliersTable.querySelector('tbody');
+document.addEventListener('DOMContentLoaded', () => {
+    const supplierTypeSelect = document.getElementById('supplier-type');
+    const loadSuppliersBtn = document.getElementById('load-suppliers-btn');
+    const suppliersTable = document.getElementById('suppliers-table');
+    const tableHeader = document.getElementById('table-header');
+    const tableBody = suppliersTable.querySelector('tbody');
+    const addSupplierForm = document.getElementById('add-supplier-form');
+    const supplierForm = document.getElementById('supplier-form');
+    const addSupplierBtn = document.getElementById('add-supplier-btn');
 
-//     // פונקציה לשליפת ספקים מהשרת
-//     async function fetchSuppliers(supplierType) {
-//         try {
-//             const response = await fetch(`/get-${supplierType}`);
-//             if (!response.ok) {
-//                 throw new Error('שגיאה בהבאת הספקים');
-//             }
-//             const suppliers = await response.json();
-//             populateSuppliersTable(suppliers);
-//         } catch (error) {
-//             console.error('שגיאה:', error.message);
-//             alert('שגיאה בטעינת הספקים: ' + error.message);
-//         }
-//     }
 
-//     // פונקציה למילוי הטבלה בספקים
-//     function populateSuppliersTable(suppliers) {
-//         tableBody.innerHTML = ''; // ניקוי הטבלה הקודמת
-//         if (suppliers.length === 0) {
-//             alert('לא נמצאו ספקים מהסוג שבחרת');
-//             suppliersTable.style.display = 'none';
-//             return;
-//         }
+    
+    // הגדרת שדות לכל סוג ספק
+    const supplierFields = {
+        halls: ['שם', 'איזור', 'עיר', 'מחיר'],
+        photographers: ['שם', 'איזור', 'עיר', 'מחיר'],
+        djs: ['שם', 'איזור', 'עיר', 'מחיר', 'סגנון מוזיקלי'],
+        bars: ['שם', 'איזור', 'עיר', 'מחיר'],
+        design: ['שם', 'איזור', 'עיר', 'התמחות', 'מחיר'],
+        bridal: ['שם', 'איזור', 'עיר', 'מחיר'],
+        grooms: ['שם', 'איזור', 'עיר', 'מחיר'],
+        arrival_confirmation_companies: ['שם', 'איזור', 'מחיר'],
+        makeup: ['שם', 'איזור', 'עיר', 'מחיר'],
+    };
 
-//         suppliers.forEach(supplier => {
-//             const row = document.createElement('tr');
-//             row.innerHTML = `
-//                 <td>${supplier.Name}</td>
-//                 <td>${supplier.Email || 'לא זמין'}</td>
-//                 <td>${supplier.UserName}</td>
-//                 <td>${supplier.Password}</td>
-//                 <td><button class="delete-btn" data-id="${supplier.id}">מחיקה</button></td>
-//             `;
-//             tableBody.appendChild(row);
-//         });
+    function fetchSuppliers(supplierType) {
+        // הצגת אינדיקציה שהנתונים נטענים
+        tableBody.innerHTML = '<tr><td colspan="5">טוען נתונים...</td></tr>';
+        
+        fetch(`/get-${supplierType}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Data received:', data); // לוג של הנתונים שהתקבלו
+                populateTable(supplierType, data);
+            })
+            .catch(error => {
+                console.error('Error fetching suppliers:', error);
+                tableBody.innerHTML = `<tr><td colspan="5">שגיאה בטעינת הנתונים: ${error.message}</td></tr>`;
+            });
+    }
 
-//         suppliersTable.style.display = 'block'; // הצגת הטבלה
-//         addDeleteButtonsEventListeners(); // הוספת מאזינים לכפתורי המחיקה
-//     }
+    function populateTable(supplierType, suppliers) {
+        tableHeader.innerHTML = '';
+        tableBody.innerHTML = '';
+        addSupplierForm.style.display = 'none';
 
-//     // פונקציה להוספת מאזינים לכפתורי המחיקה
-//     function addDeleteButtonsEventListeners() {
-//         const deleteButtons = document.querySelectorAll('.delete-btn');
-//         deleteButtons.forEach(button => {
-//             button.addEventListener('click', handleDelete);
-//         });
-//     }
+        const fields = supplierFields[supplierType];
 
-//     // פונקציה למחיקת ספק
-//     async function handleDelete(event) {
-//         const supplierId = event.target.getAttribute('data-id');
-//         if (confirm('האם אתה בטוח שברצונך למחוק את הספק?')) {
-//             try {
-//                 const response = await fetch(`/delete-user/${supplierId}`, { method: 'DELETE' });
-//                 const responseBody = await response.json();
+        // הוספת עמודות כותרת
+        fields.forEach(field => {
+            const th = document.createElement('th');
+            th.textContent = field;
+            tableHeader.appendChild(th);
+        });
 
-//                 if (response.ok) {
-//                     alert('הספק נמחק בהצלחה');
-//                     loadSuppliers(); // טען מחדש את רשימת הספקים
-//                 } else {
-//                     console.error('שגיאה מהשרת:', responseBody.message);
-//                     alert('שגיאה במחיקת הספק: ' + responseBody.message);
-//                 }
-//             } catch (error) {
-//                 console.error('שגיאה בביצוע הבקשה:', error.message);
-//                 alert('שגיאה במחיקת הספק');
-//             }
-//         }
-//     }
+        // הוספת עמודת מחיקה
+        const deleteHeaderTh = document.createElement('th');
+        deleteHeaderTh.textContent = 'מחיקה';
+        deleteHeaderTh.style.width = '80px';
+        tableHeader.appendChild(deleteHeaderTh);
 
-//     // פונקציה לטעינת ספקים לאחר בחירה
-//     function loadSuppliers() {
-//         const supplierType = supplierTypeSelect.value;
-//         if (!supplierType) {
-//             alert('אנא בחר סוג ספק');
-//             return;
-//         }
-//         fetchSuppliers(supplierType);
-//     }
+        // בדיקה אם יש נתונים
+        if (!suppliers || suppliers.length === 0) {
+            const emptyRow = document.createElement('tr');
+            const emptyCell = document.createElement('td');
+            emptyCell.colSpan = fields.length + 1;
+            emptyCell.textContent = 'אין ספקים להצגה';
+            emptyCell.style.textAlign = 'center';
+            emptyRow.appendChild(emptyCell);
+            tableBody.appendChild(emptyRow);
+            return;
+        }
 
-//     // מאזין לאירוע לחיצה על הכפתור
-//     loadSuppliersBtn.addEventListener('click', loadSuppliers);
-// });
+        // הוספת שורות לספקים
+        suppliers.forEach(supplier => {
+            const row = document.createElement('tr');
+            
+            // הוספת שדות המידע
+            fields.forEach(field => {
+                const td = document.createElement('td');
+                td.textContent = supplier[field.toLowerCase()] || 'לא זמין';
+                row.appendChild(td);
+            });
+            
+            // הוספת כפתור מחיקה
+            const deleteTd = document.createElement('td');
+            deleteTd.style.textAlign = 'center';
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = '❌';
+            deleteBtn.style.backgroundColor = 'transparent';
+            deleteBtn.style.border = 'none';
+            deleteBtn.style.cursor = 'pointer';
+            deleteBtn.style.fontSize = '16px';
+            deleteBtn.title = 'מחק ספק';
+            
+            deleteBtn.addEventListener('click', () => {
+                if (confirm('האם אתה בטוח שברצונך למחוק ספק זה?')) {
+                    deleteSupplier(supplierType, supplier.id);
+                }
+            });
+            
+            deleteTd.appendChild(deleteBtn);
+            row.appendChild(deleteTd);
+            
+            tableBody.appendChild(row);
+        });
+
+        suppliersTable.style.display = 'table';
+    }
+
+    function deleteSupplier(supplierType, supplierId) {
+        fetch(`/delete-${supplierType}/${supplierId}`, { 
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            fetchSuppliers(supplierType);
+        })
+        .catch(error => {
+            console.error('שגיאה במחיקת הספק:', error);
+            alert('אירעה שגיאה במחיקת הספק');
+        });
+    }
+
+    // האזנה לאירועים
+    loadSuppliersBtn.addEventListener('click', () => {
+        const supplierType = supplierTypeSelect.value;
+        console.log('Loading suppliers for type:', supplierType); // לוג של סוג הספק שנבחר
+        suppliersTable.style.display = 'table';
+        fetchSuppliers(supplierType);
+    });
+
+    addSupplierBtn.addEventListener('click', addSupplier);
+});
