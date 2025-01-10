@@ -79,6 +79,7 @@ p {
 
 /* כפתורים של פעולות אדמין */
 .admin-buttons {
+    
     margin-top: 20px;
     display: flex;
     flex-direction: column;

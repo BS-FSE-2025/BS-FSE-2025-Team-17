@@ -130,6 +130,8 @@ app.get('/out', (req, res) => {
     res.sendFile(path.join(__dirname, 'Templates', 'HomePage.html'));
 });
 
+
+
 // פונקציה עבור כל טבלה לשליפת נתונים מטבלה
 function fetchFromTable(res, tableName) {
     const dbPath = path.join(__dirname, 'DataBase', 'Data.db');
@@ -157,7 +159,38 @@ function fetchFromTable(res, tableName) {
     });
 }
 
-// נתיבים לשליפת נתונים
+
+// תיקון בנתיב המחיקה למחיקת משתמש לפי ID
+app.delete('/delete-user/:id', (req, res) => {
+    const userId = req.params.id; // קבלת מזהה המשתמש
+    console.log('מחיקת משתמש עם מזהה:', userId);
+
+    const db = new sqlite3.Database('./DataBase/Data.db', sqlite3.OPEN_READWRITE, (err) => {
+        if (err) {
+            console.error('שגיאה בפתיחת מסד הנתונים:', err.message);
+            return res.status(500).json({ message: 'שגיאה במסד הנתונים' });
+        }
+    });
+
+    const query = `DELETE FROM Users WHERE id = ?`; // משתמש ב-ID למחיקה
+    db.run(query, [userId], function (err) {
+        if (err) {
+            console.error('שגיאה במחיקת המשתמש:', err.message);
+            return res.status(500).json({ message: 'שגיאה במחיקת המשתמש' });
+        }
+
+        if (this.changes > 0) {
+            res.status(200).json({ message: 'המשתמש נמחק בהצלחה' });
+        } else {
+            res.status(404).json({ message: 'המשתמש לא נמצא' });
+        }
+    });
+
+    db.close();
+});
+
+
+app.get('/get-users', (req, res) => fetchFromTable(res, 'Users'));
 app.get('/get-halls', (req, res) => fetchFromTable(res, 'Hall'));
 app.get('/get-photographers', (req, res) => fetchFromTable(res, 'photos'));
 app.get('/get-djs', (req, res) => fetchFromTable(res, 'DJ'));
@@ -200,6 +233,12 @@ app.post('/submitContact', (req, res) => {
 });
 // שחר שים לב - כאן הפסקתי!
 
+app.post('/add-supplier', (req, res) => {
+    const { שם, איזור, עיר, מחיר, התמחות, 'סגנון מוזיקלי': style } = req.body;
+    // פה תוכל להוסיף שדות מותאמים לכל סוג ספק בהתאם לשדות שהגדרת
+});
+
+
 // טיפול בשגיאות
 app.use((req, res, next) => {
     res.status(404).send('עמוד לא נמצא');
@@ -209,7 +248,3 @@ app.use((req, res, next) => {
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
-
-
-
-bdika shel meshia

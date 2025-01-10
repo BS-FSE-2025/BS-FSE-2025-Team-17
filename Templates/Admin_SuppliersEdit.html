@@ -1,0 +1,61 @@
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ניהול ספקים</title>
+    <link rel="stylesheet" href="Admin_SuppliersEdit.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="navbar">
+                <li><a href="HomePage.html"><img src="12.png" alt="לוגו" class="logo"></a></li>
+                <li><a href="HomePage.html">דף הבית</a></li>
+                <li><a href="we.html">איך משתמשים?</a></li>
+                <li><a href="Admin.html">בחזרה למסך פעולות ניהול</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>ניהול ספקים</h1>
+        <div id="supplier-selection">
+            <label for="supplier-type">בחר סוג ספק:</label>
+            <select id="supplier-type">
+                <option value="halls">אולמות אירועים</option>
+                <option value="photographers">צלמים</option>
+                <option value="djs">די.ג'יי</option>
+                <option value="bars">ברים</option>
+                <option value="design">מעצבים</option>
+                <option value="bridal">בגדי כלה</option>
+                <option value="grooms">בגדי חתן</option>
+                <option value="arrival_confirmation_companies">חברות אישורי הגעה</option>
+                <option value="makeup">מאפרות</option>
+            </select>
+            <button id="load-suppliers-btn">טען ספקים</button>
+        </div>
+        <div id="add-supplier-form" style="display: none;">
+            <h3>הוסף ספק חדש</h3>
+            <form id="supplier-form">
+                <!-- שדות ייטענו דינמית -->
+            </form>
+            <button id="add-supplier-btn">הוסף ספק</button>
+        </div>
+
+        <table id="suppliers-table" border="1" style="display: none;">
+            <thead>
+                <tr id="table-header">
+                    <!-- עמודות ייטענו דינמית -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- תוכן הטבלה ייטען דינמית -->
+            </tbody>
+        </table>
+        
+    </main>
+    <script src="Admin_SuppliersEdit.js"></script>
+    <footer>
+        <p>&copy; Event Planning 2024</p>
+    </footer>
+</body>
+</html>
