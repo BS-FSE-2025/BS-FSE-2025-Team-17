@@ -201,7 +201,6 @@ app.get('/get-grooms', (req, res) => fetchFromTable(res, 'Grooms clothes'));
 app.get('/get-Arrival_confirmation_companies', (req, res) => fetchFromTable(res, 'Arrival confirmation companies'));
 app.get('/get-makeup', (req, res) => fetchFromTable(res, 'Makeup')); // מאפרת
 
-// הוספת נתיב POST להזנת נתונים לטבלת Contact // שחר שים לב! מכאן הוספתי בדף הזה
 app.post('/submitContact', (req, res) => {
     const { name, contact, information } = req.body;
 
@@ -231,11 +230,31 @@ app.post('/submitContact', (req, res) => {
     
     db.close();
 });
-// שחר שים לב - כאן הפסקתי!
-
 app.post('/add-supplier', (req, res) => {
     const { שם, איזור, עיר, מחיר, התמחות, 'סגנון מוזיקלי': style } = req.body;
     // פה תוכל להוסיף שדות מותאמים לכל סוג ספק בהתאם לשדות שהגדרת
+});
+
+//contact 
+app.get('/get-contacts', (req, res) => {
+    const dbPath = path.join(__dirname, 'DataBase', 'Data.db');
+    const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READONLY, (err) => {
+        if (err) {
+            console.error('שגיאה בפתיחת מסד הנתונים:', err.message);
+            return res.status(500).json({ message: 'שגיאה במסד הנתונים' });
+        }
+    });
+
+    const query = 'SELECT ID, Name, Contact, Information, Status FROM Contact';
+    db.all(query, [], (err, rows) => {
+        if (err) {
+            console.error('שגיאה בשליפת נתונים:', err.message);
+            return res.status(500).json({ message: 'שגיאה בשליפת נתונים' });
+        }
+        res.json(rows);
+    });
+
+    db.close();
 });
 
 
@@ -243,7 +262,61 @@ app.post('/add-supplier', (req, res) => {
 app.use((req, res, next) => {
     res.status(404).send('עמוד לא נמצא');
 });
+app.put('/update-contact-status/:ID', (req, res) => {
+    const { ID } = req.params;
+    const { status } = req.body;
 
+    if (!status) {
+        return res.status(400).json({ message: 'סטטוס חסר' });
+    }
+
+    const dbPath = path.join(__dirname, 'DataBase', 'Data.db');
+    const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
+        if (err) {
+            console.error('שגיאה בפתיחת מסד הנתונים:', err.message);
+            return res.status(500).json({ message: 'שגיאה במסד הנתונים' });
+        }
+    });
+
+    const query = `UPDATE Contact SET Status = ? WHERE ID = ?`;
+    db.run(query, [status, id], function (err) {
+        if (err) {
+            console.error('שגיאה בעדכון הסטטוס:', err.message);
+            return res.status(500).json({ message: 'שגיאה בעדכון הסטטוס' });
+        }
+
+        res.status(200).json({ message: 'הסטטוס עודכן בהצלחה' });
+    });
+
+    db.close();
+});
+app.put('/update-contact-status/:id', (req, res) => {
+    const contactId = req.params.id;
+    const newStatus = req.body.status;
+
+    const db = new sqlite3.Database('./DataBase/Data.db', sqlite3.OPEN_READWRITE, (err) => {
+        if (err) {
+            console.error('שגיאה בפתיחת מסד הנתונים:', err.message);
+            return res.status(500).json({ message: 'שגיאה במסד הנתונים' });
+        }
+    });
+
+    const query = `UPDATE Contact SET Status = ? WHERE id = ?`;
+    db.run(query, [newStatus, contactId], function (err) {
+        if (err) {
+            console.error('שגיאה בעדכון הסטטוס:', err.message);
+            return res.status(500).json({ message: 'שגיאה בעדכון הסטטוס' });
+        }
+
+        if (this.changes > 0) {
+            res.status(200).json({ message: 'הסטטוס עודכן בהצלחה' });
+        } else {
+            res.status(404).json({ message: 'הפנייה לא נמצאה' });
+        }
+    });
+
+    db.close();
+});
 // הפעלת השרת
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
