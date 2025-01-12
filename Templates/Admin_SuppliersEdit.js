@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     const supplierTypeSelect = document.getElementById('supplier-type');
     const loadSuppliersBtn = document.getElementById('load-suppliers-btn');
@@ -8,13 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const supplierForm = document.getElementById('supplier-form');
     const addSupplierBtn = document.getElementById('add-supplier-btn');
 
-
-    
     // הגדרת שדות לכל סוג ספק
     const supplierFields = {
         halls: ['שם', 'איזור', 'עיר', 'מחיר'],
         photographers: ['שם', 'איזור', 'עיר', 'מחיר'],
-        djs: ['שם', 'איזור', 'עיר', 'מחיר', 'סגנון מוזיקלי'],
+        djs: ['שם', 'איזור', 'עיר', 'סגנון מוזיקלי ', 'מחיר'],
         bars: ['שם', 'איזור', 'עיר', 'מחיר'],
         design: ['שם', 'איזור', 'עיר', 'התמחות', 'מחיר'],
         bridal: ['שם', 'איזור', 'עיר', 'מחיר'],
@@ -26,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function fetchSuppliers(supplierType) {
         // הצגת אינדיקציה שהנתונים נטענים
         tableBody.innerHTML = '<tr><td colspan="5">טוען נתונים...</td></tr>';
-        
+
         fetch(`/get-${supplierType}`)
             .then(response => {
                 if (!response.ok) {
@@ -47,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function populateTable(supplierType, suppliers) {
         tableHeader.innerHTML = '';
         tableBody.innerHTML = '';
-        addSupplierForm.style.display = 'none';
+        addSupplierForm.style.display = 'block';
 
         const fields = supplierFields[supplierType];
 
@@ -79,14 +78,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // הוספת שורות לספקים
         suppliers.forEach(supplier => {
             const row = document.createElement('tr');
-            
+
             // הוספת שדות המידע
             fields.forEach(field => {
                 const td = document.createElement('td');
-                td.textContent = supplier[field.toLowerCase()] || 'לא זמין';
+                td.textContent = supplier[field] || 'לא זמין';
                 row.appendChild(td);
             });
-            
+
             // הוספת כפתור מחיקה
             const deleteTd = document.createElement('td');
             deleteTd.style.textAlign = 'center';
@@ -97,16 +96,16 @@ document.addEventListener('DOMContentLoaded', () => {
             deleteBtn.style.cursor = 'pointer';
             deleteBtn.style.fontSize = '16px';
             deleteBtn.title = 'מחק ספק';
-            
+
             deleteBtn.addEventListener('click', () => {
                 if (confirm('האם אתה בטוח שברצונך למחוק ספק זה?')) {
                     deleteSupplier(supplierType, supplier.id);
                 }
             });
-            
+
             deleteTd.appendChild(deleteBtn);
             row.appendChild(deleteTd);
-            
+
             tableBody.appendChild(row);
         });
 
@@ -114,29 +113,82 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function deleteSupplier(supplierType, supplierId) {
-        fetch(`/delete-${supplierType}/${supplierId}`, { 
+        fetch(`/delete-${supplierType}/${supplierId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
             }
         })
-        .then(response => response.json())
-        .then(data => {
-            alert(data.message);
-            fetchSuppliers(supplierType);
-        })
-        .catch(error => {
-            console.error('שגיאה במחיקת הספק:', error);
-            alert('אירעה שגיאה במחיקת הספק');
-        });
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                fetchSuppliers(supplierType);
+            })
+            .catch(error => {
+                console.error('שגיאה במחיקת הספק:', error);
+                alert('אירעה שגיאה במחיקת הספק');
+            });
     }
+
+    // פונקציה ליצירת טופס הזנה דינמי
+    function populateSupplierForm() {
+        supplierForm.innerHTML = ''; // איפוס הטופס הקיים
+        const supplierType = supplierTypeSelect.value;
+        const fields = supplierFields[supplierType];
+
+        fields.forEach(field => {
+            const label = document.createElement('label');
+            label.textContent = field;
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.name = field;
+            supplierForm.appendChild(label);
+            supplierForm.appendChild(input);
+            supplierForm.appendChild(document.createElement('br'));
+        });
+
+        addSupplierForm.style.display = 'block';
+    }
+
+    function addSupplier() {
+        const supplierType = supplierTypeSelect.value;
+        const formData = new FormData(supplierForm);
+        const data = { type: supplierType };
+    
+        supplierFields[supplierType].forEach(field => {
+            data[field] = formData.get(field);
+        });
+    
+        console.log('Data to be sent:', data); // בדוק את הנתונים שנשלחים
+    
+        fetch('/add-supplier', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(result => {
+                console.log('Server response:', result); // לוג של תגובת השרת
+                alert(result.message);
+                if (result.id) {
+                    fetchSuppliers(supplierType); // רענון הטבלה לאחר הוספת הספק
+                }
+                
+            })
+            .catch(error => {
+                console.error('Error adding supplier:', error);
+                alert('שגיאה בהוספת הספק');
+            });
+    }
+    
 
     // האזנה לאירועים
     loadSuppliersBtn.addEventListener('click', () => {
         const supplierType = supplierTypeSelect.value;
-        console.log('Loading suppliers for type:', supplierType); // לוג של סוג הספק שנבחר
-        suppliersTable.style.display = 'table';
         fetchSuppliers(supplierType);
+        populateSupplierForm(); // יצירת טופס ההזנה לפי הספק שנבחר
     });
 
     addSupplierBtn.addEventListener('click', addSupplier);
