@@ -64,7 +64,6 @@ function displaySuppliers(suppliers, containerId, type) {
         else if (type === 'חברות אישורי הגעה') 
             {
                 additionalDetails = `
-                <p class="card-text">עיר: ${supplier['עיר']}</p>
                 <p class="card-text">טלפון: ${supplier['טלפון']}</p>
                 <p class="card-text">מחיר: ${supplier['מחיר']} ש"ח</p>
                 `;
