@@ -14,9 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = event.target.getAttribute('data-name');
             const price = parseFloat(event.target.getAttribute('data-price'));
             const pricetotal = parseFloat(event.target.getAttribute('data-pricetotal'));
-
-            // הוספת פריט עם המחיר הכולל (pricetotal) אם קיים, אחרת המחיר הבסיסי
-            addToCart({ name, price: !isNaN(pricetotal) ? pricetotal : price });
+            const city = event.target.getAttribute('data-city'); // שליפת העיר
+            const tel = event.target.getAttribute('data-tel');
+            // הוספת פריט לעגלה עם המידע על העיר
+            addToCart({ name, price: !isNaN(pricetotal) ? pricetotal : price, city,tel });
         }
     });
 
@@ -55,33 +56,32 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateCart() {
         cartList.innerHTML = ''; // נקה את רשימת העגלה
         let total = 0;
-
-        // קבלת כמות האנשים
-        const peopleCountInput = document.getElementById('people-count');
-        const peopleCount = parseInt(peopleCountInput.value) || 1;
-
-        // יצירת פריטים בעגלה
+    
         cart.forEach(item => {
             total += item.price; // חישוב הסכום הכולל
-
             const li = document.createElement('li');
-            li.textContent = `${item.name} - ₪${item.price.toLocaleString('he-IL')}`;
-
+            li.innerHTML = `
+                ${item.name} - ₪${item.price.toLocaleString('he-IL')}<br>
+                עיר: ${item.city}<br>
+                טלפון: ${item.tel}
+            `;
+            
+    
             const removeButton = document.createElement('button');
             removeButton.className = 'remove';
             removeButton.textContent = 'הסר';
             removeButton.addEventListener('click', () => {
                 removeFromCart(item);
             });
-
+    
             li.appendChild(removeButton);
             cartList.appendChild(li);
         });
-
-        // עדכון סה"כ עם פורמט פסיקים
+    
         cartTotal.textContent = total.toLocaleString('he-IL');
         checkBudget();
     }
+    
 
     // הסרת פריט מהעגלה
     function removeFromCart(item) {
