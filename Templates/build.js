@@ -120,7 +120,7 @@ function displaySuppliers(suppliers, containerId, type) {
                                 : supplier['מחיר']
                         }"
                         data-city="${supplier['עיר']}"
-                        "data-tel="${supplier['טלפון']}">
+                        data-tel="${supplier['טלפון']}">
                     בחירה
                 </button>
             </div>
