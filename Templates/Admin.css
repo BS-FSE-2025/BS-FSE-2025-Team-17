@@ -91,6 +91,9 @@ p {
     color: #fff;
     border: none;
     border-radius: 5px;
+    width: 8cm;
+    margin: 0 auto; /* מרכז את האובייקט אופקית */
+    margin-bottom: auto;
     padding: 15px 30px;
     font-size: 1.2em;
     cursor: pointer;
