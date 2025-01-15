@@ -233,6 +233,9 @@ app.delete('/delete-user/:id', (req, res) => {
     db.close();
 });
 
+
+
+
 const dbPath = path.join(__dirname, 'DataBase', 'Data.db');
 console.log('Connecting to database at:', dbPath); // הוספת לוג לבדיקה
 const db = new sqlite3.Database(dbPath);
@@ -278,7 +281,7 @@ app.post('/submitContact', (req, res) => {
     db.close();
 });
 
-//contact 
+// צפייה בפניות יצירת קשר
 app.get('/get-contacts', (req, res) => {
     const dbPath = path.join(__dirname, 'DataBase', 'Data.db');
     const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READONLY, (err) => {
@@ -295,11 +298,40 @@ app.get('/get-contacts', (req, res) => {
             return res.status(500).json({ message: 'שגיאה בשליפת נתונים' });
         }
         res.json(rows);
+        db.close();
     });
 
-    db.close();
+    
 });
 
+// מחיקת פניות ממסד הנתונים
+app.delete('/delete-contact/:id', (req, res) => {
+    const contactId = req.params.id;
+
+    const dbPath = path.join(__dirname, 'DataBase', 'Data.db');
+    const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
+        if (err) {
+            console.error('שגיאה בפתיחת מסד הנתונים:', err.message);
+            return res.status(500).json({ message: 'שגיאה במסד הנתונים' });
+        }
+    });
+
+    const query = 'DELETE FROM Contact WHERE ID = ?';
+    db.run(query, [contactId], function (err) {
+        if (err) {
+            console.error('שגיאה במחיקת הפנייה:', err.message);
+            return res.status(500).json({ message: 'שגיאה במחיקת הפנייה' });
+        }
+
+        if (this.changes > 0) {
+            res.status(200).json({ message: 'הפנייה נמחקה בהצלחה' });
+        } else {
+            res.status(404).json({ message: 'הפנייה לא נמצאה' });
+        }        
+        db.close();
+    });
+
+});
   
 app.use(bodyParser.json());
 
