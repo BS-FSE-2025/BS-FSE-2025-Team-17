@@ -1,3 +1,6 @@
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const supplierTypeSelect = document.getElementById('supplier-type');
     const loadSuppliersBtn = document.getElementById('load-suppliers-btn');
@@ -8,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const supplierFields = {
         halls: ['שם', 'איזור', 'עיר', 'מחיר'],
         photographers: ['שם', 'איזור', 'עיר', 'מחיר'],
-        djs: ['שם', 'איזור', 'עיר', 'סגנון מוזיקלי ', 'מחיר'],
+        djs: ['שם', 'איזור', 'עיר', 'סגנון מוזיקלי', 'מחיר'],
         bars: ['שם', 'איזור', 'עיר', 'מחיר'],
         design: ['שם', 'איזור', 'עיר', 'התמחות', 'מחיר'],
         bridal: ['שם', 'איזור', 'עיר', 'מחיר'],
@@ -29,6 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(data => {
                 console.log('Data received:', data);
+                // ממיין את הנתונים לפי "איזור"
+                data.sort((a, b) => {
+                    if (a['איזור'] < b['איזור']) return -1;
+                    if (a['איזור'] > b['איזור']) return 1;
+                    return 0;
+                });
                 populateTable(supplierType, data);
             })
             .catch(error => {
@@ -43,16 +52,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const fields = supplierFields[supplierType];
 
+        // הוספת כותרות לטבלה כולל עמודת "פעולות"
         fields.forEach(field => {
             const th = document.createElement('th');
             th.textContent = field;
             tableHeader.appendChild(th);
         });
+        const actionsTh = document.createElement('th');
+        actionsTh.textContent = 'להסרה ממאגר הספקים';
+        tableHeader.appendChild(actionsTh);
 
         if (!suppliers || suppliers.length === 0) {
             const emptyRow = document.createElement('tr');
             const emptyCell = document.createElement('td');
-            emptyCell.colSpan = fields.length;
+            emptyCell.colSpan = fields.length + 1;
             emptyCell.textContent = 'אין ספקים להצגה';
             emptyCell.style.textAlign = 'center';
             emptyRow.appendChild(emptyCell);
@@ -60,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        suppliers.forEach(supplier => {
+        suppliers.forEach((supplier, index) => {
             const row = document.createElement('tr');
 
             fields.forEach(field => {
@@ -69,10 +82,44 @@ document.addEventListener('DOMContentLoaded', () => {
                 row.appendChild(td);
             });
 
+            // יצירת כפתור הסרה
+            const actionsTd = document.createElement('td');
+            const removeBtn = document.createElement('button');
+            removeBtn.textContent = 'X';
+            removeBtn.classList.add('remove-btn');
+            removeBtn.addEventListener('click', () => removeSupplier(supplierType, supplier['שם'], index));
+            actionsTd.appendChild(removeBtn);
+            row.appendChild(actionsTd);
+
             tableBody.appendChild(row);
         });
 
         suppliersTable.style.display = 'table';
+    }
+
+    function removeSupplier(supplierType, supplierName, rowIndex) {
+        
+        if (!confirm(`האם אתה בטוח שברצונך להסיר את הספק "${supplierName}"?`)) return;
+        const encodedSupplierName = encodeURIComponent(supplierName);
+        fetch(`/delete-supplier/${supplierType}/${encodedSupplierName}`, {
+            method: 'DELETE'
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('שגיאה במחיקת הספק');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Supplier removed:', data);
+                alert(`הספק "${supplierName}" הוסר בהצלחה.`);
+                // הסרת השורה מהטבלה באופן דינמי
+                tableBody.deleteRow(rowIndex);
+            })
+            .catch(error => {
+                console.error('Error removing supplier:', error);
+                alert('שגיאה בהסרת הספק: ' + error.message);
+            });
     }
 
     loadSuppliersBtn.addEventListener('click', () => {

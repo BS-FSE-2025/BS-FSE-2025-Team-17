@@ -159,6 +159,50 @@ function fetchFromTable(res, tableName) {
     });
 }
 
+app.delete('/delete-supplier/:supplierType/:supplierName', (req, res) => {
+    const { supplierType, supplierName } = req.params;
+    const tableNameMap = {
+        halls: "Hall",
+        photographers: "photos",
+        djs: "DJ",
+        bars: "Bars",
+        design: "Design",
+        bridal: "Bridal clothes",
+        grooms: "Grooms clothes",
+        arrival_confirmation_companies: "Arrival confirmation companies",
+        makeup: "Makeup"
+    };
+
+    const tableName = tableNameMap[supplierType];
+    if (!tableName) {
+        return res.status(400).json({ message: 'סוג ספק לא חוקי' });
+    }
+
+    const dbPath = path.join(__dirname, 'DataBase', 'Data.db');
+    const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
+        if (err) {
+            console.error('שגיאה בפתיחת מסד הנתונים:', err.message);
+            return res.status(500).json({ message: 'שגיאה במסד הנתונים' });
+        }
+    });
+
+    const query = `DELETE FROM "${tableName}" WHERE "שם" = ?`;
+    db.run(query, [supplierName], function (err) {
+        if (err) {
+            console.error('שגיאה במחיקת הספק:', err.message);
+            return res.status(500).json({ message: 'שגיאה במחיקת הספק' });
+        }
+
+        if (this.changes > 0) {
+            res.status(200).json({ message: 'הספק הוסר בהצלחה' });
+        } else {
+            res.status(404).json({ message: 'הספק לא נמצא' });
+        }
+    });
+
+    db.close();
+});
+
 
 // תיקון בנתיב המחיקה למחיקת משתמש לפי ID
 app.delete('/delete-user/:id', (req, res) => {
@@ -189,6 +233,9 @@ app.delete('/delete-user/:id', (req, res) => {
     db.close();
 });
 
+const dbPath = path.join(__dirname, 'DataBase', 'Data.db');
+console.log('Connecting to database at:', dbPath); // הוספת לוג לבדיקה
+const db = new sqlite3.Database(dbPath);
 
 app.get('/get-users', (req, res) => fetchFromTable(res, 'Users'));
 app.get('/get-halls', (req, res) => fetchFromTable(res, 'Hall'));
@@ -230,10 +277,6 @@ app.post('/submitContact', (req, res) => {
     
     db.close();
 });
-app.post('/add-supplier', (req, res) => {
-    const { שם, איזור, עיר, מחיר, התמחות, 'סגנון מוזיקלי': style } = req.body;
-    // פה תוכל להוסיף שדות מותאמים לכל סוג ספק בהתאם לשדות שהגדרת
-});
 
 //contact 
 app.get('/get-contacts', (req, res) => {
@@ -257,6 +300,45 @@ app.get('/get-contacts', (req, res) => {
     db.close();
 });
 
+  
+app.use(bodyParser.json());
+
+app.post('/add-supplier', (req, res) => {
+    const { supplier_type, fields } = req.body;
+
+    console.log('Received supplier type:', supplier_type);
+    console.log('Received fields:', fields);
+
+    // בדיקת תקינות הקלט
+    if (!supplier_type || !fields || Object.keys(fields).length === 0) {
+        return res.status(400).json({ status: 'יגל', message: 'שגיאה' });
+    }
+
+    // בניית שאילתת SQL דינמית
+    const columns = Object.keys(fields).map(column => `"${column}"`).join(', ');
+    const placeholders = Object.keys(fields).map(() => '?').join(', ');
+    const values = Object.values(fields);
+    const query = `INSERT INTO "${supplier_type}" (${columns}) VALUES (${placeholders})`;
+    
+    console.log('Executing query:', query);
+    console.log('With values:', values);
+
+    // חיבור למסד הנתונים והכנסת הנתונים
+    const dbPath = path.join(__dirname, 'DataBase', 'Data.db');
+    console.log('Connecting to database at:', dbPath);
+    const db = new sqlite3.Database(dbPath);
+
+    db.run(query, values, function (err) {
+        if (err) {
+            console.error('Error inserting supplier:', err.message);
+            return res.status(500).json({ status: 'error', message: 'שגיאה בהוספת הספק: ' + err.message });
+        }
+
+        res.json({ status: 'success', message: 'הספק נוסף בהצלחה!' });
+    });
+
+    db.close();
+});
 
 // טיפול בשגיאות
 app.use((req, res, next) => {

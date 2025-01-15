@@ -25,7 +25,6 @@ header {
     margin-right: 10px;
 }
 
-/* תפריט ניווט */
 .navbar {
     list-style: none;
     padding: 0;
@@ -51,7 +50,6 @@ header {
     background-color: #575757;
     border-radius: 5px;
 }
-
 main {
     padding: 20px;
 }

@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>הוספת ספק חדש</title>
-    <link rel="stylesheet" href="Admin_SuppliersEdit.css">
+    
+    <link rel="stylesheet" href="Admin_AddSupplier.css">
     <script src="session.js" defer></script>
+    <script src="AddSupplier.js" defer></script>
 </head>
 <body>
     <header>
@@ -23,81 +25,33 @@
     
     <main>
         <form id="add-supplier-form">
-            <div class="form-group">
-                <label for="supplier-type">בחר סוג ספק:</label>
-                <select id="supplier-type" name="type" required>
-                    <option value="halls">אולמות אירועים</option>
-                    <option value="photographers">צלמים</option>
-                    <option value="djs">די.ג'יי</option>
-                    <option value="bars">ברים</option>
-                    <option value="design">מעצבים</option>
-                    <option value="bridal">בגדי כלה</option>
-                    <option value="grooms">בגדי חתן</option>
-                    <option value="arrival_confirmation_companies">חברות אישורי הגעה</option>
-                    <option value="makeup">מאפרות</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="supplier-name">שם הספק:</label>
-                <input type="text" id="supplier-name" name="שם" placeholder="הכנס שם ספק" required>
-            </div>
-
-            <div class="form-group">
-                <label for="supplier-region">איזור:</label>
-                <input type="text" id="supplier-region" name="איזור" placeholder="הכנס איזור" required>
-            </div>
-
-            <div class="form-group">
-                <label for="supplier-city">עיר:</label>
-                <input type="text" id="supplier-city" name="עיר" placeholder="הכנס עיר" required>
-            </div>
-
-            <div class="form-group">
-                <label for="supplier-price">מחיר:</label>
-                <input type="number" id="supplier-price" name="מחיר" placeholder="הכנס מחיר" required>
-            </div>
-
-            <button type="submit">שמור ספק</button>
-        </form>
+            <h2>הוספת ספק</h2>
+          
+            <!-- בחירה ראשונית של סוג הספק -->
+            <label for="supplier-type">בחר סוג ספק:</label>
+            <select id="supplier-type">
+              <option value="" disabled selected>בחר סוג ספק</option>
+              <option value="Arrival confirmation companies">חברות אישור הגעה</option>
+              <option value="Bars">ברים</option>
+              <option value="Bridal clothes">בגדי כלה</option>
+              <option value="DJ">DJ</option>
+              <option value="Design">עיצוב</option>
+              <option value="Grooms clothes">בגדי חתן</option>
+              <option value="Hall">אולמות</option>
+              <option value="Makeup">איפור</option>
+              <option value="photos">צילום</option>
+            </select>
+          
+            <!-- שדות המילוי הדינמיים -->
+            <div id="dynamic-fields"></div>
+          
+            <button type="submit">הוסף ספק</button>
+          </form>
+          
     </main>
 
     <footer>
         <p>&copy; Event Planning 2024</p>
     </footer>
-
-    <script>
-        document.getElementById('add-supplier-form').addEventListener('submit', (event) => {
-            event.preventDefault(); // מניעת רענון הדף
-
-            const formData = new FormData(event.target);
-            const supplierData = {};
-
-            formData.forEach((value, key) => {
-                supplierData[key] = value;
-            });
-
-            console.log('Data to be sent:', supplierData);
-
-            fetch('/add-supplier', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(supplierData)
-            })
-            .then(response => response.json())
-            .then(result => {
-                alert(result.message);
-                if (result.success) {
-                    event.target.reset(); // איפוס הטופס לאחר הוספה מוצלחת
-                }
-            })
-            .catch(error => {
-                console.error('Error adding supplier:', error);
-                alert('שגיאה בהוספת הספק');
-            });
-        });
-    </script>
 </body>
 </html>
