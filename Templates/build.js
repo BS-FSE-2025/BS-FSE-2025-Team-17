@@ -48,6 +48,7 @@ function displaySuppliers(suppliers, containerId, type) {
             const totalPrice = supplier['מחיר'] * peopleCount;
                 additionalDetails = `
                 <p class="card-text">עיר: ${supplier['עיר']}</p>
+                <p class="card-text">טלפון: ${supplier['טלפון']}</p>
                 <p class="card-text">מחיר למנה: ${supplier['מחיר']} ש"ח</p>
                 <p class="card-text">מחיר כולל: ${totalPrice} ש"ח</p>
             `;
@@ -56,35 +57,42 @@ function displaySuppliers(suppliers, containerId, type) {
             {
                 additionalDetails = `
                 <p class="card-text">עיר: ${supplier['עיר']}</p>
+                <p class="card-text">טלפון: ${supplier['טלפון']}</p>
                 <p class="card-text">מחיר: ${supplier['מחיר']} ש"ח</p>
                 `;
             } 
         else if (type === 'חברות אישורי הגעה') 
             {
                 additionalDetails = `
+                <p class="card-text">טלפון: ${supplier['טלפון']}</p>
                 <p class="card-text">מחיר: ${supplier['מחיר']} ש"ח</p>
                 `;
             } 
                 
         else if (type === 'צלמים') {
                 additionalDetails = `
+                <p class="card-text">עיר: ${supplier['עיר']}</p>
+                <p class="card-text">טלפון: ${supplier['טלפון']}</p>
                 <p class="card-text">מחיר: ${supplier['מחיר']} ש"ח</p>
             `;
         } else if (type === 'תקליטנים') {
                 additionalDetails = `
                 <p class="card-text">עיר: ${supplier['עיר']}</p>
                 <p class="card-text">סגנון מוזיקלי: ${supplier['סגנון מוזיקלי ']}</p>
+                <p class="card-text">טלפון: ${supplier['טלפון']}</p>
                 <p class="card-text">מחיר: ${supplier['מחיר']} ש"ח</p>
             `;
         } else if (type === 'בגדי חתן' || type === 'בגדי כלה') {
                 additionalDetails = `
                 <p class="card-text">עיר: ${supplier['עיר']}</p>
+                <p class="card-text">טלפון: ${supplier['טלפון']}</p>
                 <p class="card-text">מחיר: ${supplier['מחיר']} ש"ח</p>
             `;
             
         } else if (type === 'מאפרת') {
                 additionalDetails = `
                 <p class="card-text">עיר: ${supplier['עיר']}</p>
+                <p class="card-text">טלפון: ${supplier['טלפון']}</p>
                 <p class="card-text">מחיר: ${supplier['מחיר']} ש"ח</p>
             `;
             
@@ -94,6 +102,7 @@ function displaySuppliers(suppliers, containerId, type) {
                 additionalDetails = `
                 <p class="card-text">עיר: ${supplier['עיר']}</p>
                 <p class="card-text">התמחות: ${supplier['התמחות']}</p>
+                <p class="card-text">טלפון: ${supplier['טלפון']}</p>
                 <p class="card-text">מחיר: ${supplier['מחיר']} ש"ח</p>
                 `;
             } 
@@ -108,7 +117,9 @@ function displaySuppliers(suppliers, containerId, type) {
                             type === 'אולמות' 
                                 ? supplier['מחיר'] * (parseInt(document.getElementById('people-count').value) || 1)
                                 : supplier['מחיר']
-                        }">
+                        }"
+                        data-city="${supplier['עיר']}"
+                        data-tel="${supplier['טלפון']}">
                     בחירה
                 </button>
             </div>
