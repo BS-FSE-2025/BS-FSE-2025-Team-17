@@ -67,7 +67,7 @@ function displaySuppliers(suppliers, containerId, type) {
         } else if (type === 'תקליטנים') {
             additionalDetails = `
                 <p class="card-text">עיר: ${supplier['עיר']}</p>
-                <p class="card-text">סגנון מוזיקלי: ${supplier['סגנון מוזיקלי ']}</p>
+                <p class="card-text">סגנון מוזיקלי: ${supplier["סגנון מוזיקלי"]}</p>
                 <p class="card-text">מחיר: ${supplier['מחיר']} ש"ח</p>
             `;
         } else if (type === 'בגדי חתן' || type === 'בגדי כלה') {
