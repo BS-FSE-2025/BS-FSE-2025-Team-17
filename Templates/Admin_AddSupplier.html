@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>הוספת ספק חדש</title>
+    
+    <link rel="stylesheet" href="Admin_AddSupplier.css">
+    <script src="session.js" defer></script>
+    <script src="AddSupplier.js" defer></script>
+</head>
+<body>
+    <header>
+        <header>
+            <nav>
+                <ul class="navbar">
+                    <li><a href="HomePage.html"><img src="12.png" alt="לוגו" class="logo"></a></li>
+                    <li><a href="HomePage.html">דף הבית</a></li>
+                    <li id="user-menu"></li>
+                </ul>
+            </nav>
+        </header>
+        <h1>הוספת ספק חדש</h1>
+    </header>
+    
+    <main>
+        <form id="add-supplier-form">
+            <h2>הוספת ספק</h2>
+          
+            <!-- בחירה ראשונית של סוג הספק -->
+            <label for="supplier-type">בחר סוג ספק:</label>
+            <select id="supplier-type">
+              <option value="" disabled selected>בחר סוג ספק</option>
+              <option value="Arrival confirmation companies">חברות אישור הגעה</option>
+              <option value="Bars">ברים</option>
+              <option value="Bridal clothes">בגדי כלה</option>
+              <option value="DJ">DJ</option>
+              <option value="Design">עיצוב</option>
+              <option value="Grooms clothes">בגדי חתן</option>
+              <option value="Hall">אולמות</option>
+              <option value="Makeup">איפור</option>
+              <option value="photos">צילום</option>
+            </select>
+          
+            <!-- שדות המילוי הדינמיים -->
+            <div id="dynamic-fields"></div>
+          
+            <button type="submit">הוסף ספק</button>
+          </form>
+          
+    </main>
+
+    <footer>
+        <p>&copy; Event Planning 2024</p>
+    </footer>
+</body>
+</html>

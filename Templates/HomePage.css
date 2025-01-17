@@ -77,7 +77,7 @@ main {
     background-size: cover; /* מתאים את התמונה לשטח */
     background-position: center; /* ממקם את התמונה במרכז */
     background-repeat: no-repeat; /* מונע חזרה על התמונה */
-    height: 100vh; /* גובה של כל הדף */
+    min-height: 100vh; /* מאפשר תוכן בגובה משתנה */
 }
 
 .section {
@@ -129,3 +129,64 @@ footer {
     align-items: center;
     height: 100%;
 }
+
+/* אזור הביקורות */
+#reviews {
+    margin-top: -250; /* ערך שלילי שמעלה את האלמנט למעלה */
+    padding: 20px;
+    color: black; /* שינוי צבע הטקסט לשחור */
+    background-color: transparent; /* הסרת הרקע השחור */
+    border-radius: 0; /* ביטול הפינות המעוגלות */
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    position: static; /* מיקום רגיל לפי סדר המסמך */
+    transform: none; /* ביטול תזוזות */
+    z-index: 1; /* אין צורך בערך גבוה */
+}
+
+
+#reviews h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.reviews-container {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap; /* מסדר את הביקורות בשורות */
+}
+
+.review-card {
+    background-color: antiquewhite; /* רקע לבן בלבד */
+    color: #333;
+    padding: 20px;
+    border-radius: 10px; /* שמירה על כרטיסים מעוגלים */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* אפקט קל */
+    width: 250px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.review-card p {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.review-card .stars {
+    color: gold;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.review-card span {
+    font-weight: bold;
+    color: #555;
+}
+
+.review-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
