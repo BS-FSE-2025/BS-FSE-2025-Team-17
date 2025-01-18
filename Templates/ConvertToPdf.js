@@ -161,6 +161,8 @@ document.getElementById("checkout-button").addEventListener("click", function ()
                     cursor: pointer;
                     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
                     transition: all 0.3s ease;
+                    display: inline-block
+                    margin: 0 auto; /* מרכז את הכפתור */
                 }
 
                 #download-pdf-btn:hover {
@@ -202,18 +204,36 @@ document.getElementById("checkout-button").addEventListener("click", function ()
                 </div>
             </div>
             <script>
-                document.getElementById("download-pdf-btn").addEventListener("click", function () {
-                    document.getElementById("download-pdf-btn").style.display = 'none';
-                    const element = document.body;
-                    const options = {
-                        margin: 0.5,
-                        filename: 'event-summary.pdf',
-                        image: { type: 'jpeg', quality: 0.98 },
-                        html2canvas: { scale: 1 },
-                        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-                    };
-                    html2pdf().from(element).set(options).save();
+               document.getElementById("download-pdf-btn").addEventListener("click", function () {
+                const downloadButton = document.getElementById("download-pdf-btn");
+
+                // שמירת הסגנונות המקוריים
+                const originalParentTextAlign = downloadButton.parentElement.style.textAlign || "";
+                const originalMargin = downloadButton.style.margin || "";
+
+                // הסתרת הכפתור
+                downloadButton.style.display = "none";
+
+                // יצירת PDF
+                const element = document.body;
+                const options = {
+                    margin: 0.5,
+                    filename: 'האירוע שלך.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 1 },
+                    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                };
+
+                html2pdf().from(element).set(options).save().finally(function () {
+                    // שחזור סגנונות מקוריים
+                    downloadButton.style.display = "block"; // הצגת הכפתור מחדש
+                    downloadButton.parentElement.style.textAlign = originalParentTextAlign || "center"; // החזרת יישור מרכזי להורה
+                    downloadButton.style.margin = originalMargin || "0 auto"; // החזרת מרכז הכפתור
                 });
+            });
+
+
+
             </script>
         </body>
         </html>
