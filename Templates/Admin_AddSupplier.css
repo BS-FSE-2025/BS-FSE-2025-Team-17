@@ -4,17 +4,20 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     direction: rtl;
     text-align: center;
-    background-color: #1a1a1a;
-    color: #f2f2f2;
+    background-color: #f7f7f7;
+    color: #ffffff;
 }
 
 header {
-    background-color: #1a1a1a;
+    background-color: #070707;
     color: #fff;
     padding: 10px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
+}
+h1 {
+    color: #000000 !important;
 }
 
 /* לוגו */
@@ -137,11 +140,12 @@ h1 {
 
 /* תחתית העמוד */
 footer {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    margin-top: 20px;
+    background-color: #000000; /* צבע רקע כהה */
+    color: #fff; /* צבע הטקסט */
+    padding: 10px 0; /* ריווח פנימי */
+    position: fixed; /* צמידה לתחתית הדף */
+    bottom: 0; /* מיקום בתחתית */
+    width: 100%; /* כיסוי מלא של רוחב הדף */
+    z-index: 1000; /* מבטיח שה-footer יהיה מעל אלמנטים אחרים */
+    text-align: center; /* מרכז את הטקסט */
 }

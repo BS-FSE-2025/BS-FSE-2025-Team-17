@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #000; /* רקע כהה */
+    background-color: #ffffff; /* רקע  */
     color: #fff; /* טקסט לבן */
     box-sizing: border-box; /* מכיל מרווחים בגבולות */
 }
@@ -135,4 +135,20 @@ form button:hover.active {
     .login-container {
         padding: 20px 30px;
     }
+}
+/* תחתית העמוד */
+footer {
+    background-color: black;
+    color: #fff;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-size: 14px;
+    /* יישור תוכן במרכז */
+    display: flex;
+    justify-content: center; /* מרכז אופקית */
+    align-items: center;    /* מרכז אנכית */
+    height: 50px; /* קביעת גובה (אם נדרש) */
 }

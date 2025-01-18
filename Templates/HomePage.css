@@ -8,7 +8,7 @@ body {
 }
 
 header {
-    background-color: black;
+    background-color: #000000;
     color: #fff;
     padding: 10px 0;
     position: sticky;
@@ -17,21 +17,23 @@ header {
 }
 
 #text {
-    font-size: 140%;
+    font-size: 120%;
     background-color: antiquewhite;
     border-color: cadetblue;
     border-radius: 10%;
     color: black;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    height: 7cm;
-    width: 25cm;
+    font-family: Arial, sans-serif;
+    height: 2.8cm;
+    width: 13cm;
     margin: 0 auto; /* מרכז את האובייקט אופקית */
     z-index: 1;
     padding: 30px;
     position: absolute;
-    top: 10%; /* ממקם את האלמנט בחלק העליון של המסך */
+    top: 20%; /* ממקם את האלמנט בחלק העליון של המסך */
     left: 50%; /* מרכז את האלמנט אופקית */
     transform: translate(-50%, 0); /* מתקן את המיקום לפי מרכז האלמנט */
+    padding-top: 10px; /* מקטין את הריווח הפנימי העליון */
+    margin-top: 0px; /* מקטין את הריווח החיצוני העליון */
 }
 
 .logo {

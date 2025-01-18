@@ -4,7 +4,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     direction: rtl;
     text-align: center;
-    background-color: #1a1a1a;
+    background-color: #f8f8f8;
     color: #f2f2f2;
 }
 
@@ -58,7 +58,7 @@ main {
 
 h1 {
     margin-bottom: 20px;
-    color: #e6e6e6;
+    color: #020202;
 }
 
 /* סגנון לטבלה */
@@ -109,11 +109,12 @@ table tr:hover {
 
 /* תחתית העמוד */
 footer {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    margin-top: 20px;
+    background-color: #050505; /* צבע רקע כהה */
+    color: #fff; /* צבע הטקסט */
+    padding: 10px 0; /* ריווח פנימי */
+    position: fixed; /* צמידה לתחתית הדף */
+    bottom: 0; /* מיקום בתחתית */
+    width: 100%; /* כיסוי מלא של רוחב הדף */
+    z-index: 1000; /* מבטיח שה-footer יהיה מעל אלמנטים אחרים */
+    text-align: center; /* מרכז את הטקסט */
 }

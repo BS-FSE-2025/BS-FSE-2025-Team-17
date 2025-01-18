@@ -4,7 +4,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     direction: rtl;
     text-align: center;
-    background-color: #1a1a1a;
+    background-color: #f0f0f0;
     color: #f2f2f2;
 }
 
@@ -57,7 +57,10 @@ main {
 
 h1 {
     margin-bottom: 20px;
-    color: #e6e6e6;
+    color: #000000;
+}
+h3{
+    color: black;
 }
 
 /* סגנון לטבלה */
@@ -94,7 +97,7 @@ table tr:hover {
 /* כפתור פעולות */
 .action-button {
     background-color: #555;
-    color: white;
+    color: rgb(255, 255, 255);
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -108,11 +111,11 @@ table tr:hover {
 
 /* תחתית העמוד */
 footer {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    margin-top: 20px;
+    background-color: #050505; /* צבע הרקע של הפוטר */
+    color: #fff; /* צבע הטקסט */
+    padding: 10px 0; /* ריווח פנימי למראה מסודר */
+    position: fixed; /* מצמיד את הפוטר לתחתית */
+    bottom: 0; /* מקבע אותו בתחתית הדף */
+    width: 100%; /* גורם לפוטר לכסות את כל רוחב המסך */
+    z-index: 1000; /* מבטיח שהפוטר יהיה מעל כל אלמנט אחר */
 }
