@@ -94,9 +94,6 @@ app.post('/login', (req, res) => {
         }
     });
 });
-
-
-
 app.get('/logout', (req, res) => {
     req.session.destroy(err => {
         if (err) {
@@ -104,6 +101,44 @@ app.get('/logout', (req, res) => {
             return res.status(500).json({ message: 'שגיאה בניתוק' });
         }
         res.redirect('/out'); // חזרה לדף הבית לאחר התנתקות
+    });
+});
+// שחזור סיסמה
+app.post('/recover-password', (req, res) => {
+    const { email } = req.body;
+
+    if (!email) {
+        return res.status(400).json({ message: 'יש לספק כתובת מייל' });
+    }
+
+    const dbPath = path.join(__dirname, 'DataBase', 'Data.db');
+    const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READONLY, (err) => {
+        if (err) {
+            console.error('שגיאה בפתיחת מסד הנתונים:', err.message);
+            return res.status(500).json({ message: 'שגיאה במסד הנתונים' });
+        }
+    });
+
+    const query = 'SELECT Password FROM Users WHERE Email = ?';
+    db.get(query, [email], (err, row) => {
+        if (err) {
+            console.error('שגיאה בשליפת הנתונים:', err.message);
+            return res.status(500).json({ message: 'שגיאה בשליפת הנתונים' });
+        }
+
+        if (row) {
+            // מחזיר את הסיסמה אם המייל נמצא
+            return res.status(200).json({ message: 'הסיסמה נמצאה', password: row.Password });
+        } else {
+            // הודעה אם המייל לא נמצא
+            return res.status(404).json({ message: 'המייל לא נמצא במערכת' });
+        }
+    });
+
+    db.close((err) => {
+        if (err) {
+            console.error('שגיאה בסגירת מסד הנתונים:', err.message);
+        }
     });
 });
 app.get('/get-session', (req, res) => {

@@ -1,23 +1,41 @@
-// מעבר לתצוגת הרשמה
+// אלמנטים של תצוגות
 const switchToRegister = document.getElementById('switch-to-register');
-// מעבר לתצוגת התחברות
 const switchToLogin = document.getElementById('switch-to-login');
-// תצוגות התחברות והרשמה
+const switchToForgotPassword = document.getElementById('switch-to-forgot-password');
+const switchToLoginFromForgot = document.getElementById('switch-to-login-from-forgot');
+
 const loginContainer = document.querySelector('.login-container');
 const registerContainer = document.querySelector('.register-container');
+const forgotPasswordContainer = document.querySelector('.forgot-password-container');
 
-// הצגת תצוגת הרשמה
+// מעבר לתצוגת הרשמה
 switchToRegister.addEventListener('click', () => {
     loginContainer.style.display = 'none';
+    forgotPasswordContainer.style.display = 'none';
     registerContainer.style.display = 'block';
 });
 
-// הצגת תצוגת התחברות
+// מעבר לתצוגת התחברות
 switchToLogin.addEventListener('click', () => {
     registerContainer.style.display = 'none';
+    forgotPasswordContainer.style.display = 'none';
     loginContainer.style.display = 'block';
 });
 
+// מעבר לתצוגת שחזור סיסמה
+switchToForgotPassword.addEventListener('click', () => {
+    loginContainer.style.display = 'none';
+    registerContainer.style.display = 'none';
+    forgotPasswordContainer.style.display = 'block';
+});
+
+// חזרה לתצוגת התחברות משחזור סיסמה
+switchToLoginFromForgot.addEventListener('click', () => {
+    forgotPasswordContainer.style.display = 'none';
+    loginContainer.style.display = 'block';
+});
+
+// טיפול בטופס הרשמה
 document.getElementById('register-form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -48,14 +66,41 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     }
 });
 
+document.getElementById('forgot-password-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById('email').value;
+
+    try {
+        const response = await fetch('/recover-password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email }),
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            alert(`הסיסמה שלך היא: ${data.password}`);
+        } else {
+            alert(data.message);
+        }
+    } catch (error) {
+        console.error('שגיאה בשליחת הבקשה:', error);
+        alert('שגיאה בשרת');
+    }
+});
+
+
+
+// בדיקה אם המשתמש מחובר
 document.addEventListener('DOMContentLoaded', async () => {
     const userMenu = document.getElementById('user-menu');
-    console.log('User menu element:', userMenu); // בדיקת אלמנט
 
     try {
         const response = await fetch('/get-session');
         const data = await response.json();
-        console.log('Session data from server:', data); // בדיקת המידע שהגיע מהשרת
 
         if (response.ok && data.username) {
             let adminControl = '';
@@ -68,7 +113,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 ${adminControl}
                 <a href="/logout" style="color:red; margin-left: 10px;">התנתק</a>
             `;
-            console.log('User menu updated:', userMenu.innerHTML); // בדיקת תוכן מעודכן
         } else {
             userMenu.innerHTML = `<a href="Templates/Login.html">התחבר/הרשם</a>`;
         }
@@ -77,5 +121,4 @@ document.addEventListener('DOMContentLoaded', async () => {
         userMenu.innerHTML = `<a href="Templates/Login.html">התחבר/הרשם</a>`;
     }
 });
-
 
