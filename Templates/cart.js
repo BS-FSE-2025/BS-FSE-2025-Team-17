@@ -62,8 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const li = document.createElement('li');
             li.innerHTML = `
                 ${item.name} - ₪${item.price.toLocaleString('he-IL')}<br>
-                עיר: ${item.city}<br>
-                טלפון: ${item.tel}
+                עיר - ${item.city}<br>
+                טלפון - ${item.tel}
             `;
             
     
