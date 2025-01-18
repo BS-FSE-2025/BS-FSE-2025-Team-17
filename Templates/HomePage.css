@@ -10,12 +10,13 @@ body {
 main {
     color: white;
     padding: 20px;
-    background-image: url('photo1.jpg'); /* נתיב לתמונה */
     background-size: cover; /* מתאים את התמונה לשטח */
     background-position: center; /* ממקם את התמונה במרכז */
     background-repeat: no-repeat; /* מונע חזרה על התמונה */
     min-height: 100vh; /* מאפשר תוכן בגובה משתנה */
+    transition: background-image 1s ease-in-out; /* אפקט מעבר בין תמונות */
 }
+
 header {
     background-color: black;
     color: #fff;
