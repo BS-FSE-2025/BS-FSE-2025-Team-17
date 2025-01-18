@@ -316,6 +316,34 @@ app.post('/submitContact', (req, res) => {
     db.close();
 });
 
+// הזנת דירוג באתר
+app.post('/submitReview', (req, res) => {
+    const { name, city, content, stars } = req.body;
+
+    if (!name || !stars) {
+        return res.status(400).json({ message: 'נא למלא את השדות החובה: שם ודירוג!' });
+    }
+
+    const dbPath = path.join(__dirname, 'DataBase', 'Data.db');
+    const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
+        if (err) {
+            console.error('שגיאה בפתיחת מסד הנתונים:', err.message);
+            return res.status(500).json({ message: 'שגיאה במסד הנתונים' });
+        }
+    });
+
+    const query = `INSERT INTO Reviews (Name, City, Content, Stars) VALUES (?, ?, ?, ?)`;
+    db.run(query, [name, city, content, stars], function (err) {
+        if (err) {
+            console.error('שגיאה בהכנסת הנתונים:', err.message);
+            return res.status(500).json({ message: 'שגיאה בהכנסת הנתונים' });
+        }
+        res.status(200).json({ message: 'המידע נשמר בהצלחה!', id: this.lastID });
+    });
+
+    db.close();
+});
+
 // צפייה בפניות יצירת קשר
 app.get('/get-contacts', (req, res) => {
     const dbPath = path.join(__dirname, 'DataBase', 'Data.db');
@@ -338,7 +366,19 @@ app.get('/get-contacts', (req, res) => {
 
     
 });
+// צפייה בדירוגים
+app.get("/get-reviews", (req, res) => {
+    const query = "SELECT Name, City, Content, Stars FROM Reviews";
 
+    db.all(query, [], (err, rows) => {
+        if (err) {
+            console.error("שגיאה בשליפת הנתונים:", err.message);
+            res.status(500).json({ error: "שגיאה בשליפת הנתונים" });
+        } else {
+            res.json(rows);
+        }
+    });
+});
 // מחיקת פניות ממסד הנתונים
 app.delete('/delete-contact/:id', (req, res) => {
     const contactId = req.params.id;
@@ -378,7 +418,7 @@ app.post('/add-supplier', (req, res) => {
 
     // בדיקת תקינות הקלט
     if (!supplier_type || !fields || Object.keys(fields).length === 0) {
-        return res.status(400).json({ status: 'יגל', message: 'שגיאה' });
+        return res.status(400).json({ status: 'שגיאה', message: 'שגיאה' });
     }
 
     // בניית שאילתת SQL דינמית

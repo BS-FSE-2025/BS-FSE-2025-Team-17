@@ -1,0 +1,120 @@
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ניהול פניות יצירת קשר</title>
+    <link rel="stylesheet" href="Admin_contactUS.css">
+    <script src="session.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="navbar">
+                <li><a href="HomePage.html"><img src="12.png" alt="לוגו" class="logo"></a></li>
+                <li><a href="HomePage.html">דף הבית</a></li>
+                <li id="user-menu"></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>כאן תוכל לצפות בדירוגי המשתמשים על האתר</h1>
+        <table id="contacts-table" border="1">
+            <thead>
+                <tr>
+                    <th>מספר</th>
+                    <th>שם מלא</th>
+                    <th>עיר</th>
+                    <th>ביקורת</th>
+                    <th>דירוג</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- כאן ייטענו הפניות מהשרת -->
+            </tbody>
+        </table>
+    </main>
+    <script>
+       document.addEventListener("DOMContentLoaded", () => {
+    // פונקציה לטעינת נתונים מהשרת
+    async function fetchReviews() {
+        try {
+            // שליפת הנתונים מהשרת או API (שנה את ה-URL לפי הצורך)
+            const response = await fetch("/get-reviews"); // נתיב ה-API
+            if (!response.ok) {
+                throw new Error("שגיאה בטעינת הנתונים מהשרת");
+            }
+            const reviews = await response.json();
+
+            // טוען את הנתונים לטבלה
+            populateTable(reviews);
+        } catch (error) {
+            console.error("שגיאה:", error);
+        }
+    }
+
+    // פונקציה לעדכון הטבלה
+    function populateTable(reviews) {
+        const tableBody = document.querySelector("#contacts-table tbody");
+        tableBody.innerHTML = ""; // מנקה תוכן קיים בטבלה
+
+        reviews.forEach((review, index) => {
+        const row = document.createElement("tr");
+
+        // תא עבור מספר סידורי
+        const numCell = document.createElement("td");
+        numCell.textContent = index + 1;
+        row.appendChild(numCell);
+
+        // תא עבור שם
+        const nameCell = document.createElement("td");
+        nameCell.textContent = review.Name || "לא צוין";
+        row.appendChild(nameCell);
+
+        // תא עבור עיר
+        const cityCell = document.createElement("td");
+        cityCell.textContent = review.City || "לא צוין";
+        row.appendChild(cityCell);
+
+        // תא עבור ביקורת
+        const contentCell = document.createElement("td");
+        contentCell.textContent = review.Content || "אין ביקורת";
+        row.appendChild(contentCell);
+
+        // תא עבור דירוג כוכבים
+        const starsCell = document.createElement("td");
+        starsCell.innerHTML = generateStars(review.Stars || 0);
+        row.appendChild(starsCell);
+
+        // הוספת השורה לטבלה
+        tableBody.appendChild(row);
+    });
+
+    }
+
+    // פונקציה ליצירת HTML של כוכבים לפי דירוג
+    function generateStars(starCount) {
+        const fullStar = "★"; // כוכב מלא
+        const emptyStar = "☆"; // כוכב ריק (אופציונלי)
+        let stars = "";
+
+        for (let i = 0; i < starCount; i++) {
+            stars += fullStar; // מוסיף כוכב מלא
+        }
+        for (let i = starCount; i < 5; i++) {
+            stars += emptyStar; // מוסיף כוכב ריק (אופציונלי, למלא עד 5 כוכבים)
+        }
+
+        return stars;
+    }
+
+    // טוען את הדירוגים בעת טעינת הדף
+    fetchReviews();
+});
+
+
+    </script>
+    <!-- <footer>
+        <p>&copy; Event Planning 2024</p>
+    </footer> -->
+</body>
+</html>
