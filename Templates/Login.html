@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -7,29 +8,32 @@
 </head>
 <body>
     <header>
-        
         <nav>
             <ul class="navbar">
                 <li><a href="HomePage.html"><img src="12.png" alt="לוגו" class="logo"></a></li>
                 <li><a href="HomePage.html">דף הבית</a></li>
                 <li><a href="we.html">איך משתמשים?</a></li>
                 <li><a href="ContactUs.html">צור קשר</a></li>
+                <li><a href="Reviews.html">דרגו אותנו</a></li>
                 <li id="user-menu"></li>
             </ul>
         </nav>
     </header>
 
     <main>
+        <!-- תצוגת התחברות -->
         <div class="login-container">
             <h2>התחברות</h2>
             <form id="login-form" action="/login" method="POST">
                 <input type="text" name="username" placeholder="שם משתמש" required>
                 <input type="password" name="password" placeholder="סיסמה" required>
+                <a href="#" id="switch-to-forgot-password" class="forgot-password-link">שכחתי סיסמה</a>
                 <button type="submit">התחבר</button>
             </form>
             <p>אין לך חשבון? <a href="#" id="switch-to-register">הרשם כאן</a></p>
         </div>
-    
+
+        <!-- תצוגת הרשמה -->
         <div class="register-container" style="display: none;">
             <h2>הרשמה</h2>
             <form id="register-form" action="/register" method="POST">
@@ -41,6 +45,15 @@
             </form>
             <p>יש לך חשבון? <a href="#" id="switch-to-login">התחבר כאן</a></p>
         </div>
+        <div class="forgot-password-container" style="display: none;">
+            <h2>שחזור סיסמה</h2>
+            <form id="forgot-password-form" action="/recover-password" method="POST">
+                <label for="email">מייל:</label>
+                <input type="email" id="email" name="email" placeholder="הכנס כתובת מייל" required>
+                <button type="submit">שחזר סיסמה</button>
+            </form>            
+            <p>נזכרת בסיסמה? <a href="#" id="switch-to-login-from-forgot">חזור להתחברות</a></p>
+        </div>
     </main>
 
     <footer>
@@ -48,5 +61,6 @@
     </footer>
 
     <script src="Login.js"></script>
+    <script src="session.js" defer></script>
 </body>
 </html>
