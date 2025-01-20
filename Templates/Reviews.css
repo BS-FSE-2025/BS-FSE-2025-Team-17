@@ -1,7 +1,7 @@
 /* כללי */
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.8;
     direction: rtl;
     text-align: center;
@@ -10,39 +10,40 @@ body {
 }
 
 header {
-    background-color: black;
+    background-color:black;
     color: #fff;
     padding: 10px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
 }
-
-/* לוגו */
 .logo {
-    height: 50px;
-    width: auto;
-    vertical-align: middle;
-    margin-right: 10px;
+        height: 50px; /* גובה הלוגו */
+        width: auto; /* התאמה יחסית לרוחב */
+        vertical-align: middle; /* מיישר את הלוגו עם שאר הקישורים */
+        margin-right: 10px; /* רווח בין הלוגו לקישורים */
+        border-radius: 50%; /* עיגול (אם תרצה) */
+        object-fit: cover; /* התאמת התמונה בצורה אסתטית */
 }
-
 /* תפריט ניווט */
 .navbar {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
-    align-items: center;
+    align-items: center; /* מיישר את הפריטים למרכז אנכי */
     justify-content: center;
-    gap: 15px;
+    gap: 15px; /* רווח בין הפריטים */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
 
 .navbar li {
     display: inline;
 }
 
 .navbar a {
-    color: #fff;
+    color: white;
     text-decoration: none;
     padding: 10px 20px;
     transition: background-color 0.3s;
@@ -50,13 +51,14 @@ header {
 
 .navbar a:hover {
     background-color: #575757;
-    border-radius: 5px;
+    border-radius: 5px;
 }
 
 #Big_Title {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    margin: 2cm auto;
+    margin: 1cm auto;
     text-align: center;
+    font-size: 50px;
 }
 
 /* עיצוב כללי לטופס */
@@ -116,7 +118,7 @@ header {
 #submitReview {
     margin-top: 20px;
     padding: 12px;
-    background-color: #007bff;
+    background-color: rgb(10, 62, 233);
     color: #ffffff;
     border: none;
     border-radius: 5px;
@@ -128,7 +130,7 @@ header {
 }
 
 #submitReview:hover {
-    background-color: #0056b3;
+    background-color: rgb(13, 165, 224);
 }
 
 /* רספונסיביות */
@@ -151,9 +153,14 @@ header {
 
 footer {
     background-color: black;
-    color: #fff;
-    padding: 10px;
+    color: white;
+    padding: 0; /* ריווח פנימי מינימלי */
     position: relative;
     width: 100%;
     text-align: center;
+    height: 50px; /* גובה מותאם */
+    display: flex; /* שימוש ב-flexbox */
+    align-items: center; /* יישור אנכי */
+    justify-content: center; /* יישור אופקי */
 }
+
