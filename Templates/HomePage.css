@@ -1,21 +1,15 @@
-/* כללי */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    direction: rtl;
-    text-align: center;
-}
+
 /* אזור התוכן */
 main {
+    flex: 1; /* מאפשר לתוכן המרכזי למלא את השטח הזמין */
     color: white;
     padding: 20px;
-    background-size: cover; /* מתאים את התמונה לשטח */
-    background-position: center; /* ממקם את התמונה במרכז */
-    background-repeat: no-repeat; /* מונע חזרה על התמונה */
-    min-height: 100vh; /* מאפשר תוכן בגובה משתנה */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     transition: background-image 1s ease-in-out; /* אפקט מעבר בין תמונות */
 }
+
 
 header {
     background-color: black;
@@ -69,11 +63,13 @@ body {
     line-height: 1.6;
     direction: rtl;
     text-align: center;
-    background-image: url('photo1.jpg'); /* שמירת הרקע */
+    display: flex;
+    flex-direction: column; /* פריסה אנכית */
+    height: 100vh; /* גובה המסך */
+    background-image: url('photo1.jpg'); /* רקע */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    min-height: 100vh;
 }
 
 /* לוח הביקורות */
@@ -258,11 +254,8 @@ body {
 }
 
 footer {
-    background-color:black;
-    color: #fff;
-    padding: 10px;
-    position: relative;
-    width: 100%;
+    background-color: black;
+    color: white;
     text-align: center;
-    
+    padding: 10px;
 }
