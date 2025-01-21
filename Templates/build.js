@@ -17,6 +17,53 @@ async function fetchSuppliers(type, apiEndpoint, containerId) {
         alert(`שגיאה בטעינת ${type}`);
     }
 }
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('user-type-modal');
+    const clientButton = document.getElementById('client-button');
+    const ownerButton = document.getElementById('owner-button');
+    const producerButton = document.getElementById('producer-button');
+
+    let userType = '';
+
+    // הראה את המודאל
+    modal.style.display = 'flex';
+
+    // כפתור לקוח או מפיק אירועים
+    clientButton.addEventListener('click', () => {
+        userType = 'client';
+        modal.style.display = 'none';
+    });
+
+    producerButton.addEventListener('click', () => {
+        userType = 'producer';
+        modal.style.display = 'none';
+    });
+
+    // כפתור בעל אולם
+    ownerButton.addEventListener('click', () => {
+        userType = 'owner';
+        modal.style.display = 'none';
+
+        // נטרול בחירת אולמות
+        const hallCards = document.getElementById('halls-container');
+        if (hallCards) {
+            hallCards.style.pointerEvents = 'none'; // מניעת אינטראקציה
+            hallCards.style.opacity = '0.5'; // מראה עמום לאזור האולמות
+        }
+    });
+
+    // בדיקת סוג משתמש לפני הוספת לאירוע
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('add-to-cart')) {
+            const itemType = e.target.closest('.card-container').id;
+            if (userType === 'owner' && itemType === 'halls-container') {
+                e.preventDefault();
+                alert('כבעל אולם, אינך יכול לבחור אולם.');
+            }
+        }
+    });
+});
+
 
 function filterSuppliers(suppliers, region, containerId, type) {
     const filteredSuppliers = suppliers.filter(supplier => {
