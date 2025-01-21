@@ -15,15 +15,14 @@ header {
     top: 0;
     z-index: 1000;
 }
-
-/* לוגו */
 .logo {
-    height: 50px; /* גובה הלוגו */
-    width: auto; /* התאמה יחסית לרוחב */
-    vertical-align: middle; /* מיישר את הלוגו עם שאר הקישורים */
-    margin-right: 10px; /* רווח בין הלוגו לקישורים */
+        height: 50px; /* גובה הלוגו */
+        width: auto; /* התאמה יחסית לרוחב */
+        vertical-align: middle; /* מיישר את הלוגו עם שאר הקישורים */
+        margin-right: 10px; /* רווח בין הלוגו לקישורים */
+        border-radius: 50%; /* עיגול (אם תרצה) */
+        object-fit: cover; /* התאמת התמונה בצורה אסתטית */
 }
-
 /* תפריט ניווט */
 .navbar {
     list-style: none;
@@ -33,14 +32,16 @@ header {
     align-items: center; /* מיישר את הפריטים למרכז אנכי */
     justify-content: center;
     gap: 15px; /* רווח בין הפריטים */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
 
 .navbar li {
     display: inline;
 }
 
 .navbar a {
-    color: #fff;
+    color: white;
     text-decoration: none;
     padding: 10px 20px;
     transition: background-color 0.3s;
@@ -48,7 +49,7 @@ header {
 
 .navbar a:hover {
     background-color: #575757;
-    border-radius: 5px;
+    border-radius: 5px;
 }
 
 main {
@@ -222,4 +223,19 @@ form button:hover.active {
 
 .forgot-password-container a:hover {
     text-decoration: underline;
+}
+footer {
+    background-color:black;
+    color: white;
+    padding: 0;
+    position: fixed; /* מקבע את ה-footer בתחתית הדף */
+    bottom: 0; /* מצמיד אותו לתחתית */
+    left: 0;
+    width: 100%; /* גורם לו להתפרש לרוחב המסך */
+    font-size: 14px;
+    display: flex;
+    justify-content: center; /* ממרכז תוכן אופקית */
+    align-items: center; /* ממרכז תוכן אנכית */
+    height: 50px; /* גובה קבוע */
+    z-index: 1000; /* מבטיח שהוא יישאר מעל תוכן אחר */
 }

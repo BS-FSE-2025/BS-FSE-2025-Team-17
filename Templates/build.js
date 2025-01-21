@@ -49,12 +49,11 @@ function displaySuppliers(suppliers, containerId, type) {
                 additionalDetails = `
                 <p class="card-text">עיר: ${supplier['עיר']}</p>
                 <p class="card-text">טלפון: ${supplier['טלפון']}</p>
-                <p class="card-text">תאורה והגברה: ${light} ש״ח</p>
                 <p class="card-text">מחיר למנה: ${supplier['מחיר']} ש"ח</p>
                 <p class="card-text">מחיר כולל: ${totalPrice} ש"ח</p>
-                <h6>*המחיר הסופי הוא כולל תאורה והגברה</h6>
             `;
         } 
+        // <p class="card-text">תאורה והגברה: ${light} ש״ח</p>
         else if (type === 'בר שתייה') 
             {
                 additionalDetails = `

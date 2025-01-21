@@ -1,12 +1,11 @@
 /* כללי */
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     direction: rtl;
     text-align: center;
 }
-
 header {
     background-color: black;
     color: #fff;
@@ -15,15 +14,14 @@ header {
     top: 0;
     z-index: 1000;
 }
-
-/* לוגו */
 .logo {
     height: 50px; /* גובה הלוגו */
     width: auto; /* התאמה יחסית לרוחב */
     vertical-align: middle; /* מיישר את הלוגו עם שאר הקישורים */
     margin-right: 10px; /* רווח בין הלוגו לקישורים */
+    border-radius: 50%; /* עיגול (אם תרצה) */
+    object-fit: cover; /* התאמת התמונה בצורה אסתטית */
 }
-
 /* תפריט ניווט */
 .navbar {
     list-style: none;
@@ -33,6 +31,7 @@ header {
     align-items: center; /* מיישר את הפריטים למרכז אנכי */
     justify-content: center;
     gap: 15px; /* רווח בין הפריטים */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 
@@ -41,7 +40,7 @@ header {
 }
 
 .navbar a {
-    color: #fff;
+    color: white;
     text-decoration: none;
     padding: 10px 20px;
     transition: background-color 0.3s;
@@ -49,7 +48,7 @@ header {
 
 .navbar a:hover {
     background-color: #575757;
-    border-radius: 5px;
+    border-radius: 5px;
 }
 .form-container {
     display: flex;
@@ -124,14 +123,14 @@ input[type="text"] {
 }
 
 button {
-    background-color: black;
+    background-color: rgb(47, 2, 248);
     color: white;
     border: none;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: rgb(192, 222, 255);
+    background-color: rgb(77, 149, 226);
     padding: 10px 30px;
 }
 button:active {
@@ -217,7 +216,7 @@ button:active {
 /* פוטר */
 footer {
     text-align: center;
-    background-color: black;
+    background-color:  black;
     color: white;
     padding: 10px 0;
     margin-top: 20px;

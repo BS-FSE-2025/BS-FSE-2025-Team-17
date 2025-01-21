@@ -33,12 +33,12 @@
                 </select>
                 <div>
                     <label for="people-count">כמות אנשים:</label>
-                    <input id="people-count" type="text" required>
+                    <input id="people-count" type="number"min="1" required placeholder="הזן כמות אנשים">
                 </div>
                 <div>
                     <label for="event-budget">תקציב האירוע:</label>
-                    <input id="event-budget" type="text" required>
-                </div>
+                    <input id="event-budget" type="number" min="1" required placeholder="הזן תקציב">
+                </div>
                 <button id="search-button">חיפוש</button>
             </div>
         </section>
@@ -47,6 +47,7 @@
         <section id="cards" class="section">
             <h1>תוצאות החיפוש</h1>
             <h2>אולמות</h2>
+            <h3>שימו לב, הוספנו כבר את מחירי התאורה וההגברה :)</h3>
             <section id="halls-container" class="card-container"></section>
             <h2>צלמים</h2>
             <section id="photos-container" class="card-container"></section>
@@ -58,7 +59,7 @@
     </main>
 
     <footer>
-        <p>&copy; Event Planning 2024</p>
+        <p>&copy; YSDR - Team 17</p>
     </footer>
 
     <script src="build3.js"></script>
