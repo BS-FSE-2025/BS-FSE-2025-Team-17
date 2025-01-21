@@ -1,10 +1,11 @@
 html, body {
   height: 100%;
+  direction: rtl;
   margin: 0;
 }
 
 header {
-  background-color: black;
+  background-color: rgb(0, 0, 0);
   color: #fff;
   padding: 10px 0;
   position: sticky;
@@ -12,12 +13,12 @@ header {
   z-index: 1000;
 }
 .logo {
-      height: 50px; /* גובה הלוגו */
-      width: auto; /* התאמה יחסית לרוחב */
-      vertical-align: middle; /* מיישר את הלוגו עם שאר הקישורים */
-      margin-right: 10px; /* רווח בין הלוגו לקישורים */
-      border-radius: 50%; /* עיגול (אם תרצה) */
-      object-fit: cover; /* התאמת התמונה בצורה אסתטית */
+  height: 50px; /* גובה הלוגו */
+  width: auto; /* התאמה יחסית לרוחב */
+  vertical-align: middle; /* מיישר את הלוגו עם שאר הקישורים */
+  margin-right: 10px; /* רווח בין הלוגו לקישורים */
+  border-radius: 50%; /* עיגול (אם תרצה) */
+  object-fit: cover; /* התאמת התמונה בצורה אסתטית */
 }
 /* תפריט ניווט */
 .navbar {
@@ -37,7 +38,7 @@ header {
 }
 
 .navbar a {
-  color: white;
+  color: rgb(255, 255, 255);
   text-decoration: none;
   padding: 10px 20px;
   transition: background-color 0.3s;
@@ -45,7 +46,7 @@ header {
 
 .navbar a:hover {
   background-color: #575757;
-  border-radius: 5px;
+  border-radius: 5px;
 }
 
 #title {
