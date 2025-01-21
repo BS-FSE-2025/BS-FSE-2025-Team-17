@@ -42,10 +42,10 @@ function displaySuppliers(suppliers, containerId, type) {
         if (type === 'אולמות') 
         {
             const peopleCountInput = document.getElementById('people-count');
-            const peopleCount = parseInt(peopleCountInput.value) || 1; // ברירת מחדל: 1
-
+            const peopleCount = parseInt(peopleCountInput.value) || 1;
+            const light = 8000;
             // חישוב המחיר הכולל
-            const totalPrice = supplier['מחיר'] * peopleCount;
+            const totalPrice = supplier['מחיר'] * peopleCount + light;
                 additionalDetails = `
                 <p class="card-text">עיר: ${supplier['עיר']}</p>
                 <p class="card-text">טלפון: ${supplier['טלפון']}</p>
@@ -53,6 +53,7 @@ function displaySuppliers(suppliers, containerId, type) {
                 <p class="card-text">מחיר כולל: ${totalPrice} ש"ח</p>
             `;
         } 
+        // <p class="card-text">תאורה והגברה: ${light} ש״ח</p>
         else if (type === 'בר שתייה') 
             {
                 additionalDetails = `
@@ -115,7 +116,7 @@ function displaySuppliers(suppliers, containerId, type) {
                         data-name="${supplier['שם']}"
                         data-price="${
                             type === 'אולמות' 
-                                ? supplier['מחיר'] * (parseInt(document.getElementById('people-count').value) || 1)
+                                ? supplier['מחיר'] * (parseInt(document.getElementById('people-count').value)|| 1) + 8000
                                 : supplier['מחיר']
                         }"
                         data-city="${supplier['עיר']}"

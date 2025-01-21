@@ -1,8 +1,7 @@
 /* כללי */
 body {
     margin: 0;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    line-height: 1.6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;    line-height: 1.6;
     direction: rtl;
     text-align: center;
 }
@@ -18,10 +17,12 @@ header {
 
 /* לוגו */
 .logo {
-    height: 50px;
-    width: auto;
-    vertical-align: middle;
-    margin-right: 10px;
+    height: 50px; /* גובה הלוגו */
+    width: auto; /* התאמה יחסית לרוחב */
+    vertical-align: middle; /* מיישר את הלוגו עם שאר הקישורים */
+    margin-right: 10px; /* רווח בין הלוגו לקישורים */
+    border-radius: 50%; /* עיגול (אם תרצה) */
+    object-fit: cover; /* התאמת התמונה בצורה אסתטית */
 }
 
 /* תפריט ניווט */
@@ -122,4 +123,7 @@ footer {
     position: relative;
     bottom: 0;
     width: 100%;
+}
+  footer p {
+    color: #fff;
 }

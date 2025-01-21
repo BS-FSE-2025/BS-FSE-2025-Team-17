@@ -1,38 +1,31 @@
-/* כללי */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    direction: rtl;
-    text-align: center;
-}
+
 /* אזור התוכן */
 main {
+    flex: 1; /* מאפשר לתוכן המרכזי למלא את השטח הזמין */
     color: white;
     padding: 20px;
-    background-image: url('photo1.jpg'); /* נתיב לתמונה */
-    background-size: cover; /* מתאים את התמונה לשטח */
-    background-position: center; /* ממקם את התמונה במרכז */
-    background-repeat: no-repeat; /* מונע חזרה על התמונה */
-    min-height: 100vh; /* מאפשר תוכן בגובה משתנה */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 1s ease-in-out; /* אפקט מעבר בין תמונות */
 }
+
 header {
-    background-color: black;
+    background-color:black;
     color: #fff;
     padding: 10px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
 }
-
-
 .logo {
-    height: 50px; /* גובה הלוגו */
-    width: auto; /* התאמה יחסית לרוחב */
-    vertical-align: middle; /* מיישר את הלוגו עם שאר הקישורים */
-    margin-right: 10px; /* רווח בין הלוגו לקישורים */
+        height: 50px; /* גובה הלוגו */
+        width: auto; /* התאמה יחסית לרוחב */
+        vertical-align: middle; /* מיישר את הלוגו עם שאר הקישורים */
+        margin-right: 10px; /* רווח בין הלוגו לקישורים */
+        border-radius: 50%; /* עיגול (אם תרצה) */
+        object-fit: cover; /* התאמת התמונה בצורה אסתטית */
 }
-
 /* תפריט ניווט */
 .navbar {
     list-style: none;
@@ -42,6 +35,7 @@ header {
     align-items: center; /* מיישר את הפריטים למרכז אנכי */
     justify-content: center;
     gap: 15px; /* רווח בין הפריטים */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 
@@ -50,7 +44,7 @@ header {
 }
 
 .navbar a {
-    color: #fff;
+    color: white;
     text-decoration: none;
     padding: 10px 20px;
     transition: background-color 0.3s;
@@ -58,9 +52,8 @@ header {
 
 .navbar a:hover {
     background-color: #575757;
-    border-radius: 5px;
+    border-radius: 5px;
 }
-
 /* רקע כללי */
 body {
     margin: 0;
@@ -68,11 +61,13 @@ body {
     line-height: 1.6;
     direction: rtl;
     text-align: center;
-    background-image: url('photo1.jpg'); /* שמירת הרקע */
+    display: flex;
+    flex-direction: column; /* פריסה אנכית */
+    height: 100vh; /* גובה המסך */
+    background-image: url('photo1.jpg'); /* רקע */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    min-height: 100vh;
 }
 
 /* לוח הביקורות */
@@ -257,11 +252,17 @@ body {
 }
 
 footer {
-    background-color:black;
-    color: #fff;
-    padding: 10px;
-    position: relative;
-    width: 100%;
-    text-align: center;
-    
+    background-color: black;
+    color: white;
+    padding: 0;
+    position: fixed; /* מקבע את ה-footer בתחתית הדף */
+    bottom: 0; /* מצמיד אותו לתחתית */
+    left: 0;
+    width: 100%; /* גורם לו להתפרש לרוחב המסך */
+    font-size: 14px;
+    display: flex;
+    justify-content: center; /* ממרכז תוכן אופקית */
+    align-items: center; /* ממרכז תוכן אנכית */
+    height: 50px; /* גובה קבוע */
+    z-index: 1000; /* מבטיח שהוא יישאר מעל תוכן אחר */
 }
