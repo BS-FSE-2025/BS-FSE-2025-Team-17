@@ -80,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
         cartTotal.textContent = total.toLocaleString('he-IL');
         checkBudget();
+        
     }
     
 
