@@ -32,6 +32,7 @@ header {
     justify-content: center;
     gap: 15px; /* רווח בין הפריטים */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
 }
 
 
