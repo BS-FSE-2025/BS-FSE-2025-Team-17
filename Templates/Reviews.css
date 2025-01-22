@@ -118,7 +118,7 @@ header {
 #submitReview {
     margin-top: 20px;
     padding: 12px;
-    background-color: rgb(10, 62, 233);
+    background-color:black;
     color: #ffffff;
     border: none;
     border-radius: 5px;
@@ -130,7 +130,8 @@ header {
 }
 
 #submitReview:hover {
-    background-color: rgb(13, 165, 224);
+    transform: scale(1.05); /* הגדלה בעת מעבר עכבר */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* צל חזק יותר */
 }
 
 /* רספונסיביות */
@@ -154,13 +155,12 @@ header {
 footer {
     background-color: black;
     color: white;
-    padding: 0; /* ריווח פנימי מינימלי */
-    position: relative;
+    padding: 10px;
+    position: fixed; /* גורם לפוטר להיות תמיד בתחתית המסך */
     width: 100%;
     text-align: center;
-    height: 50px; /* גובה מותאם */
-    display: flex; /* שימוש ב-flexbox */
-    align-items: center; /* יישור אנכי */
-    justify-content: center; /* יישור אופקי */
+    bottom: 0; /* מוודא שהפוטר מוצמד לתחתית */
+    z-index: 1000; /* גורם לפוטר להיות מעל אלמנטים אחרים */
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.2); /* מוסיף צל מעל הפוטר */
 }
 
