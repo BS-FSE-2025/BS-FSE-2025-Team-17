@@ -17,6 +17,53 @@ async function fetchSuppliers(type, apiEndpoint, containerId) {
         return;
     }
 }
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('user-type-modal');
+    const clientButton = document.getElementById('client-button');
+    const ownerButton = document.getElementById('owner-button');
+    const producerButton = document.getElementById('producer-button');
+
+    let userType = '';
+
+    // הראה את המודאל
+    modal.style.display = 'flex';
+
+    // כפתור לקוח או מפיק אירועים
+    clientButton.addEventListener('click', () => {
+        userType = 'client';
+        modal.style.display = 'none';
+    });
+
+    producerButton.addEventListener('click', () => {
+        userType = 'producer';
+        modal.style.display = 'none';
+    });
+
+    // כפתור בעל אולם
+    ownerButton.addEventListener('click', () => {
+        userType = 'owner';
+        modal.style.display = 'none';
+
+        // נטרול בחירת אולמות
+        const hallCards = document.getElementById('halls-container');
+        if (hallCards) {
+            hallCards.style.pointerEvents = 'none'; // מניעת אינטראקציה
+            hallCards.style.opacity = '0.5'; // מראה עמום לאזור האולמות
+        }
+    });
+
+    // בדיקת סוג משתמש לפני הוספת לאירוע
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('add-to-cart')) {
+            const itemType = e.target.closest('.card-container').id;
+            if (userType === 'owner' && itemType === 'halls-container') {
+                e.preventDefault();
+                alert('כבעל אולם, אינך יכול לבחור אולם.');
+            }
+        }
+    });
+});
+
 
 function filterSuppliers(suppliers, region, containerId, type) {
     const filteredSuppliers = suppliers.filter(supplier => {
@@ -41,45 +88,59 @@ function displaySuppliers(suppliers, containerId, type) {
         // התאמת הפרטים להצגה לפי סוג הספק
         if (type === 'אולמות') 
         {
+            const peopleCountInput = document.getElementById('people-count');
+            const peopleCount = parseInt(peopleCountInput.value) || 1;
+            const light = 8000;
+            // חישוב המחיר הכולל
+            const totalPrice = supplier['מחיר'] * peopleCount + light;
             additionalDetails = `
                 <p class="card-text">עיר: ${supplier['עיר']}</p>
                 <p class="card-text">מחיר למנה: ${supplier['מחיר']} ש"ח</p>
+                <p class="card-text">מחיר כולל: ${totalPrice} ש"ח</p>
             `;
         } 
         else if (type === 'בר שתייה') 
             {
                 additionalDetails = `
                 <p class="card-text">עיר: ${supplier['עיר']}</p>
+                <p class="card-text">טלפון: ${supplier['טלפון']}</p>
                 <p class="card-text">מחיר: ${supplier['מחיר']} ש"ח</p>
+                
                 `;
             } 
         else if (type === 'חברות אישורי הגעה') 
             {
                 additionalDetails = `
+                 <p class="card-text">טלפון: ${supplier['טלפון']}</p>
                 <p class="card-text">מחיר: ${supplier['מחיר']} ש"ח</p>
                 `;
             } 
                 
         else if (type === 'צלמים') {
             additionalDetails = `
+                <p class="card-text">עיר: ${supplier['עיר']}</p>
+                <p class="card-text">טלפון: ${supplier['טלפון']}</p>
                 <p class="card-text">מחיר: ${supplier['מחיר']} ש"ח</p>
             `;
         } else if (type === 'תקליטנים') {
             additionalDetails = `
                 <p class="card-text">עיר: ${supplier['עיר']}</p>
                 <p class="card-text">סגנון מוזיקלי: ${supplier["סגנון מוזיקלי"]}</p>
+                <p class="card-text">טלפון: ${supplier['טלפון']}</p>
                 <p class="card-text">מחיר: ${supplier['מחיר']} ש"ח</p>
             `;
         } else if (type === 'בגדי חתן' || type === 'בגדי כלה') {
             additionalDetails = `
                 <p class="card-text">עיר: ${supplier['עיר']}</p>
-                <p class="card-text">מחיר למנה: ${supplier['מחיר']} ש"ח</p>
+                <p class="card-text">טלפון: ${supplier['טלפון']}</p>
+                <p class="card-text">מחיר: ${supplier['מחיר']} ש"ח</p>
             `;
             
         } else if (type === 'מאפרת') {
             additionalDetails = `
                 <p class="card-text">עיר: ${supplier['עיר']}</p>
-                <p class="card-text">מחיר למנה: ${supplier['מחיר']} ש"ח</p>
+                <p class="card-text">טלפון: ${supplier['טלפון']}</p>
+                <p class="card-text">מחיר: ${supplier['מחיר']} ש"ח</p>
             `;
             
         }
@@ -88,15 +149,26 @@ function displaySuppliers(suppliers, containerId, type) {
                 additionalDetails = `
                 <p class="card-text">עיר: ${supplier['עיר']}</p>
                 <p class="card-text">התמחות: ${supplier['התמחות']}</p>
-                <p class="card-text">מחיר למנה: ${supplier['מחיר']} ש"ח</p>
+                <p class="card-text">טלפון: ${supplier['טלפון']}</p>
+                <p class="card-text">מחיר: ${supplier['מחיר']} ש"ח</p>
                 `;
             } 
 
-        card.innerHTML = `
+            card.innerHTML = `
             <div class="card-body">
-                <h5 class="card-title">${supplier['שם'] || 'לא זמין'}</h5>
+                <h5 class="card-title">${supplier['שם']}</h5>
                 ${additionalDetails}
-                <a href=/Templates/cart.html class="btn btn-primary">בחירה</a>
+                <button class="btn btn-primary add-to-cart" 
+                        data-name="${supplier['שם']}"
+                        data-price="${
+                            type === 'אולמות' 
+                                ? supplier['מחיר'] * (parseInt(document.getElementById('people-count').value)|| 1) + 8000
+                                : supplier['מחיר']
+                        }"
+                        data-city="${supplier['עיר']}"
+                        data-tel="${supplier['טלפון']}">
+                    בחירה
+                </button>
             </div>
         `;
         container.appendChild(card);

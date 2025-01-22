@@ -53,6 +53,29 @@
 </html>
 <!--Costumer Script-->
 <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+    try {
+        const response = await fetch("/getUserDetails", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (response.ok) {
+            const userDetails = await response.json();
+
+            // מילוי אוטומטי של שדות הטופס
+            document.getElementById("name").value = userDetails.name || "";
+            document.getElementById("phone_number").value = userDetails.Email || "";
+        } else {
+            console.log("משתמש לא מחובר או שגיאה באימות.");
+        }
+    } catch (error) {
+        console.error("שגיאה בשליפת פרטי המשתמש:", error);
+    }
+});
+
 document.getElementById("contact_form").addEventListener("submit", async function (event) {
     event.preventDefault(); // למנוע ריענון דף בעת שליחה
 

@@ -3,22 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>בניית אירוע</title>
+    <title>חתונה/חינה/בר מצווה/בת מצווה</title>
     <link rel="stylesheet" href="build.css">
     <link rel="stylesheet" href="Calculator.css">
     <link rel="stylesheet" href="cart.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
-
-
-
-    <script src="session.js" defer></script>
 </head>
-
-
-
 <body>
     <header>
         <nav>
@@ -35,6 +25,16 @@
     </header>
 
     <main>
+        <div id="user-type-modal" class="modal">
+            <div class="modal-content">
+                <h2>היי, ספר לנו קצת עליך? </h2>
+                <h5>בעל אולם? נחסוך ממך את הצעות האולמות :)</h5>
+                <button id="client-button" class="user-type-button">אני לקוח</button>
+                <button id="owner-button" class="user-type-button">אני בעל אולם</button>
+                <button id="producer-button" class="user-type-button">אני מפיק אירועים</button>
+            </div>
+        </div>
+        
         <!-- בחירת ספק -->
         <section id="selection" class="section">
             <h2>בחר ספקים לאירוע</h2>
@@ -135,18 +135,16 @@
             <button onclick="setOperation('+')">+</button>
         </div>
     </div>
-    
-
-    <footer>
-        <p>&copy; YSDR - Team 17</p>
-    </footer>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
     <script src="build.js"></script>
     <script src="cal.js"></script>
     <script src="cart.js"></script>
     <script src="ConvertToPdf.js"></script>
-
-
-
+    <script src="session.js" defer></script>
+    <footer>
+        <p>&copy; YSDR - Team 17</p>
+    </footer>
 </body>
 </html>

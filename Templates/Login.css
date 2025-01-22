@@ -72,6 +72,76 @@ main {
     text-align: center;
 }
 
+.register-container {
+    background-color: #111;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    max-width: 350px;
+    text-align: center;
+    margin: auto;
+    display: none; /* מוסתר כברירת מחדל */
+}
+
+.register-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.register-container form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background-color: #222;
+    color: #fff;
+    font-size: 14px;
+}
+
+.register-container form input::placeholder {
+    color: #aaa;
+}
+
+.register-container form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: not-allowed;
+}
+
+.register-container form button.active {
+    background-color: #007bff;
+    cursor: pointer;
+}
+
+.register-container form button:hover.active {
+    background-color: #0056b3;
+}
+
+.register-container p {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #fff;
+}
+
+.register-container a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.register-container a:hover {
+    text-decoration: underline;
+}
+
+
 .login-container h2 {
     margin-bottom: 20px;
     font-size: 24px;

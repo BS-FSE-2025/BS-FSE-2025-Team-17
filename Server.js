@@ -141,6 +141,17 @@ app.post('/recover-password', (req, res) => {
         }
     });
 });
+app.get('/getUserDetails', (req, res) => {
+    if (req.session && req.session.username) {
+        res.json({
+            name: req.session.username, // שם המשתמש
+            contact: req.session.contact || '', // פרטי התקשרות (טלפון/דוא"ל) אם קיימים
+        });
+    } else {
+        res.status(401).json({ message: 'משתמש לא מחובר' });
+    }
+});
+
 app.get('/get-session', (req, res) => {
     if (req.session.username) {
         res.json({
