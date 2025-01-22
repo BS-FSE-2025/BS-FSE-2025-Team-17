@@ -1,11 +1,15 @@
 /* כללי */
-body {
+body{
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     direction: rtl;
     text-align: center;
+    background-color: #e1e1e1; /* גוון לבן חם */
+    color: #333333; /* טקסט כהה לקריאות טובה */
 }
+
+
 header {
     background-color: black;
     color: #fff;
@@ -19,7 +23,7 @@ header {
     width: auto; /* התאמה יחסית לרוחב */
     vertical-align: middle; /* מיישר את הלוגו עם שאר הקישורים */
     margin-right: 10px; /* רווח בין הלוגו לקישורים */
-    border-radius: 50%; /* עיגול (אם תרצה) */
+    border-radius: 50%; 
     object-fit: cover; /* התאמת התמונה בצורה אסתטית */
 }
 /* תפריט ניווט */
@@ -102,8 +106,8 @@ header {
     padding: 15px 0;
     font-size: 18px;
     font-weight: bold;
-    color: black;
-    background-color:#6c757d;
+    color: white;
+    background-color:rgba(0, 0, 0, 0.704);
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -175,6 +179,7 @@ button:hover {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     max-width: 600px;
+    box-shadow: #555555;
 }
 
 #selection h2 {
@@ -225,7 +230,7 @@ button:active {
     gap: 15px;
     background-color: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0,0.5);
     max-width: 90%;
     margin: 20px auto;
 }
@@ -235,10 +240,16 @@ button:active {
     border: 1px solid #ddd;
     border-radius: 8px;
     min-width: 250px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* הצל המקורי */
     text-align: center;
     padding: 10px;
     flex-shrink: 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* מעבר חלק */
+}
+
+.card:hover {
+    transform: scale(1.05); /* הגדלה בעת מעבר עכבר */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* צל חזק יותר */
 }
 
 .card-body {
