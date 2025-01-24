@@ -18,12 +18,12 @@ header {
 
 /* לוגו */
 .logo {
-    height: 50px; /* גובה הלוגו */
-    width: auto; /* התאמה יחסית לרוחב */
-    vertical-align: middle; /* מיישר את הלוגו עם שאר הקישורים */
-    margin-right: 10px; /* רווח בין הלוגו לקישורים */
-    border-radius: 50%; /* עיגול (אם תרצה) */
-    object-fit: cover; /* התאמת התמונה בצורה אסתטית */
+    height: 50px; 
+    width: auto; 
+    vertical-align: middle; 
+    margin-right: 10px; 
+    border-radius: 50%;
+    object-fit: cover; 
 }
 
 /* תפריט ניווט */

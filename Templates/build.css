@@ -5,8 +5,8 @@ body{
     line-height: 1.6;
     direction: rtl;
     text-align: center;
-    background-color: #e1e1e1; /* גוון לבן חם */
-    color: #333333; /* טקסט כהה לקריאות טובה */
+    background-color: #e1e1e1;
+    color: #333333; 
 }
 
 
@@ -19,12 +19,12 @@ header {
     z-index: 1000;
 }
 .logo {
-    height: 50px; /* גובה הלוגו */
-    width: auto; /* התאמה יחסית לרוחב */
-    vertical-align: middle; /* מיישר את הלוגו עם שאר הקישורים */
-    margin-right: 10px; /* רווח בין הלוגו לקישורים */
+    height: 50px; 
+    width: auto; 
+    vertical-align: middle; 
+    margin-right: 10px; 
     border-radius: 50%; 
-    object-fit: cover; /* התאמת התמונה בצורה אסתטית */
+    object-fit: cover; 
 }
 /* תפריט ניווט */
 .navbar {
@@ -32,9 +32,9 @@ header {
     padding: 0;
     margin: 0;
     display: flex;
-    align-items: center; /* מיישר את הפריטים למרכז אנכי */
+    align-items: center; 
     justify-content: center;
-    gap: 15px; /* רווח בין הפריטים */
+    gap: 15px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 16px;
 }
@@ -75,7 +75,7 @@ header {
         to bottom, 
         rgba(0, 0, 0, 0.8), 
         rgba(50, 50, 50, 0.7)
-    ); /* רקע הדרגתי שחור-אפור */
+    );
     align-items: center;
     justify-content: center;
     z-index: 9999;
@@ -85,7 +85,7 @@ header {
     background: #ffffff;
     padding: 30px 40px;
     border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* צל עמוק */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     text-align: center;
     max-width: 400px;
     width: 90%;
@@ -111,15 +111,15 @@ header {
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* מעבר חלק */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* שמירת גודל קבוע של הצל */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
 .user-type-button:hover {
-    background-color: #f5e2c8; /* צבע בהיר יותר ב-Hover */}
+    background-color: rgb(77, 149, 226);; }
 
 .user-type-button:active {
-    background-color: #edd9b3; /* צבע כהה יותר בעת לחיצה */}
+    background-color: rgb(77, 149, 226);;}
 
 
 
@@ -240,16 +240,16 @@ button:active {
     border: 1px solid #ddd;
     border-radius: 8px;
     min-width: 250px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* הצל המקורי */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     padding: 10px;
     flex-shrink: 0;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* מעבר חלק */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
 }
 
 .card:hover {
-    transform: scale(1.05); /* הגדלה בעת מעבר עכבר */
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* צל חזק יותר */
+    transform: scale(1.05); 
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); 
 }
 
 .card-body {
@@ -278,7 +278,7 @@ button:active {
 }
 
 .btn:hover {
-    background-color:rgb(192, 222, 255);
+    background-color:rgb(77, 149, 226);
     
     text-decoration: none;
 }
@@ -306,11 +306,18 @@ button:active {
 
 /* פוטר */
 footer {
-    text-align: center;
-    background-color:  black;
+    background-color: black;
     color: white;
-    padding: 10px 0;
-    margin-top: 20px;
+    padding: 0; 
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-size: 14px;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 50px; 
+    z-index: 1000; 
 }
 
 

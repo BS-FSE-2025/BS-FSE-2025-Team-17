@@ -1,5 +1,6 @@
 <html lang="he">
 <head>
+    <link rel="icon" href="cropped_image.png" class="circular-favicon" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ניהול פניות יצירת קשר</title>
@@ -94,14 +95,14 @@
     // פונקציה ליצירת HTML של כוכבים לפי דירוג
     function generateStars(starCount) {
         const fullStar = "★"; // כוכב מלא
-        const emptyStar = "☆"; // כוכב ריק (אופציונלי)
+        const emptyStar = "☆"; // כוכב ריק
         let stars = "";
 
         for (let i = 0; i < starCount; i++) {
             stars += fullStar; // מוסיף כוכב מלא
         }
         for (let i = starCount; i < 5; i++) {
-            stars += emptyStar; // מוסיף כוכב ריק (אופציונלי, למלא עד 5 כוכבים)
+            stars += emptyStar; // מוסיף כוכב ריק
         }
 
         return stars;

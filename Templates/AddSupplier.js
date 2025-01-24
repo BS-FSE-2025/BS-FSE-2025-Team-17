@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             label.textContent = column;
             input.type = "text";
-            input.name = column.trim(); // הוספת trim כדי להסיר רווחים מיותרים
+            input.name = column.trim();
 
             fieldWrapper.appendChild(label);
             fieldWrapper.appendChild(input);

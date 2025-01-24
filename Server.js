@@ -100,7 +100,7 @@ app.get('/logout', (req, res) => {
             console.error('שגיאה בניתוק:', err.message);
             return res.status(500).json({ message: 'שגיאה בניתוק' });
         }
-        res.redirect('/out'); // חזרה לדף הבית לאחר התנתקות
+        res.redirect('/out');
     });
 });
 // שחזור סיסמה
@@ -156,7 +156,7 @@ app.get('/get-session', (req, res) => {
     if (req.session.username) {
         res.json({
             username: req.session.username,
-            isAdmin: req.session.isAdmin || false, // ודא שהמאפיין נשלח
+            isAdmin: req.session.isAdmin || false, 
         });
     } else {
         res.json({ username: null, isAdmin: false });
@@ -420,10 +420,8 @@ app.delete('/delete-contact/:id', (req, res) => {
 });
   
 app.use(bodyParser.json());
-
 app.post('/add-supplier', (req, res) => {
     const { supplier_type, fields } = req.body;
-
     console.log('Received supplier type:', supplier_type);
     console.log('Received fields:', fields);
 
