@@ -41,6 +41,12 @@ function calculate() {
             result = previousValue * currentValue;
             break;
         case '/':
+             // טיפול במצב של חלוקה ב-0
+             if (currentValue === 0) {
+                alert('לא ניתן לחלק ב-0');
+                clearDisplay();
+                return;
+            }
             result = previousValue / currentValue;
             break;
         default:

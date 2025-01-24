@@ -14,3 +14,12 @@ npm install express
 npm install sqlite3
 
 npm install express-session
+
+npm install --save-dev @babel/preset-env @babel/preset-react babel-jest
+
+npm install --save-dev @testing-library/react @testing-library/jest-dom
+
+npm install --save-dev jsdom
+
+npm install util
+
