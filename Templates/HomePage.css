@@ -1,15 +1,13 @@
-
 /* אזור התוכן */
 main {
-    flex: 1; /* מאפשר לתוכן המרכזי למלא את השטח הזמין */
+    flex: 1; 
     color: white;
     padding: 20px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    transition: background-image 1s ease-in-out; /* אפקט מעבר בין תמונות */
+    transition: background-image 1s ease-in-out; 
 }
-
 header {
     background-color:black;
     color: #fff;
@@ -19,12 +17,12 @@ header {
     z-index: 1000;
 }
 .logo {
-        height: 50px; /* גובה הלוגו */
-        width: auto; /* התאמה יחסית לרוחב */
-        vertical-align: middle; /* מיישר את הלוגו עם שאר הקישורים */
-        margin-right: 10px; /* רווח בין הלוגו לקישורים */
-        border-radius: 50%; /* עיגול (אם תרצה) */
-        object-fit: cover; /* התאמת התמונה בצורה אסתטית */
+        height: 50px; 
+        width: auto;
+        vertical-align: middle; 
+        margin-right: 10px; 
+        border-radius: 50%; 
+        object-fit: cover; 
 }
 /* תפריט ניווט */
 .navbar {
@@ -32,9 +30,9 @@ header {
     padding: 0;
     margin: 0;
     display: flex;
-    align-items: center; /* מיישר את הפריטים למרכז אנכי */
+    align-items: center; 
     justify-content: center;
-    gap: 15px; /* רווח בין הפריטים */
+    gap: 15px; 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -62,8 +60,8 @@ body {
     direction: rtl;
     text-align: center;
     display: flex;
-    flex-direction: column; /* פריסה אנכית */
-    height: 100vh; /* גובה המסך */
+    flex-direction: column; 
+    height: 100vh; 
     background-image: url('photo1.jpg'); /* רקע */
     background-size: cover;
     background-position: center;
@@ -73,9 +71,9 @@ body {
 /* לוח הביקורות */
 .reviews-marquee {
     overflow: hidden;
-    width: 12cm; /* אורך השורה */
-    height: 1.5cm; /* גובה מותאם לתוכן */
-    background-color: rgba(247, 229, 201, 0.432); /* רקע חצי שקוף */
+    width: 12cm;
+    height: 1.5cm; 
+    background-color: rgba(247, 229, 201, 0.432); 
     padding: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position: relative;
@@ -89,34 +87,34 @@ body {
 .reviews-content {
     display: inline-flex;
     align-items: center;
-    animation: scroll-reviews 25s linear infinite; /* זמן אנימציה מותאם */
-    gap: 10px; /* רווח בין הכרטיסיות */
+    animation: scroll-reviews 25s linear infinite; 
+    gap: 10px; 
 }
 
 .review-card {
     display: inline-flex;
-    flex-direction: row; /* מציג את התוכן בשורה */
+    flex-direction: row; 
     align-items: center;
-    padding: 5px 10px; /* ריווח פנימי */
+    padding: 5px 10px;
     background-color: burlywood;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     font-size: 12px;
     color: white;
-    white-space: nowrap; /* מונע מעבר שורות */
-    height: auto; /* גובה מותאם לתוכן */
-    width: auto; /* רוחב מותאם לתוכן */
+    white-space: nowrap; 
+    height: auto; 
+    width: auto; 
 }
 
 .review-card span {
     color: #000000;
     font-size: 14px;
-    margin-left: 5px; /* מרווח בין הטקסט לכוכבים */
+    margin-left: 5px; 
 }
 
 .review-card .review-title {
     font-weight: bold;
-    margin-right: 5px; /* מרווח בין השם לטקסט הביקורת */
+    margin-right: 5px; 
 }
 
 .review-card .reviewer {
@@ -161,21 +159,21 @@ body {
 
 /* טקסט ראשי */
 #text {
-    width: 50%; /* רוחב השורה */
-    margin: 20px auto; /* מרכז את האלמנט */
+    width: 50%; 
+    margin: 20px auto;
     padding: 10px;
-    background-color: #F5E6CC; /* חום בהיר */
-    border: 2px solid #D1B58F; /* מסגרת חומה */
+    background-color: #F5E6CC;
+    border: 2px solid #D1B58F;
     border-radius: 8px;
-    color: #5D4037; /* צבע טקסט חום כהה */
+    color: #5D4037; 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #000000;
     font-size: 18px;
     text-align: center;
     position: relative;
-    overflow: hidden; /* מניעת גלישה של תוכן */
-    cursor: pointer; /* שינוי מצביע לעכבר */
-    transition: all 0.3s ease-in-out; /* מעבר חלק */
+    overflow: hidden; 
+    cursor: pointer; 
+    transition: all 0.3s ease-in-out; 
 }
 
 #text .title {
@@ -183,48 +181,48 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 5px; /* מרווח בין הטקסט לחץ */
+    gap: 5px; 
 }
 
 #text .title::after {
-    content: "▼"; /* חץ כלפי מטה */
+    content: "▼"; 
     font-size: 14px;
-    color: #5D4037; /* צבע החץ */
-    transition: transform 0.3s ease-in-out; /* אנימציה לחץ */
+    color: #5D4037; 
+    transition: transform 0.3s ease-in-out;
 }
 
 #text:hover .title::after {
-    transform: rotate(180deg); /* החץ יסתובב למעלה */
+    transform: rotate(180deg);
 }
 
 #text .hidden-text {
-    display: none; /* הסתרת הטקסט המורחב כברירת מחדל */
+    display: none; 
     padding: 10px;
-    text-align: justify; /* יישור טקסט לימין ושמאל */
-    line-height: 1.6; /* ריווח שורות */
+    text-align: justify; 
+    line-height: 1.6;
     font-size: 16px;
-    background-color: #FDF3E7; /* רקע חום בהיר יותר לטקסט */
-    border-top: 1px solid #D1B58F; /* מסגרת עליונה */
-    border-radius: 0 0 8px 8px; /* פינות מעוגלות לתחתית */
-    animation: fadeOut 0.8s ease-in-out; /* אפקט סגירה */
+    background-color: #FDF3E7; 
+    border-top: 1px solid #D1B58F; 
+    border-radius: 0 0 8px 8px; 
+    animation: fadeOut 0.8s ease-in-out;
 }
 
 /* פתיחת הטקסט בהנחת עכבר */
 #text:hover {
     height: auto;
-    padding-bottom: 10px; /* ריווח תחתון נוסף */
+    padding-bottom: 10px; 
 }
 
 #text:hover .hidden-text {
-    display: block; /* הצגת הטקסט המורחב */
-    animation: fadeIn 0.8s ease-in-out; /* אפקט פתיחה */
+    display: block; 
+    animation: fadeIn 0.8s ease-in-out; 
 }
 
 #text:not(:hover) .hidden-text {
-    animation: fadeOut 0.8s ease-in-out; /* אפקט סגירה */
-    opacity: 0; /* שקיפות מלאה */
-    transform: translateY(50%); /* מחזיר את הטקסט למטה */
-    display: none; /* הסתרה מוחלטת לאחר האנימציה */
+    animation: fadeOut 0.8s ease-in-out; 
+    opacity: 0;
+    transform: translateY(50%);
+    display: none;
 }
 
 /* אנימציית פתיחה */
@@ -255,14 +253,14 @@ footer {
     background-color: black;
     color: white;
     padding: 0;
-    position: fixed; /* מקבע את ה-footer בתחתית הדף */
-    bottom: 0; /* מצמיד אותו לתחתית */
+    position: fixed; 
+    bottom: 0;
     left: 0;
-    width: 100%; /* גורם לו להתפרש לרוחב המסך */
+    width: 100%;
     font-size: 14px;
     display: flex;
-    justify-content: center; /* ממרכז תוכן אופקית */
-    align-items: center; /* ממרכז תוכן אנכית */
-    height: 50px; /* גובה קבוע */
-    z-index: 1000; /* מבטיח שהוא יישאר מעל תוכן אחר */
+    justify-content: center; 
+    align-items: center; 
+    height: 50px; 
+    z-index: 1000; 
 }

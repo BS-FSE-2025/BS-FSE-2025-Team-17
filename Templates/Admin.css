@@ -17,12 +17,12 @@ header {
 
 /* לוגו */
 .logo {
-    height: 50px; /* גובה הלוגו */
-    width: auto; /* התאמה יחסית לרוחב */
-    vertical-align: middle; /* מיישר את הלוגו עם שאר הקישורים */
-    margin-right: 10px; /* רווח בין הלוגו לקישורים */
-    border-radius: 50%; /* עיגול (אם תרצה) */
-    object-fit: cover; /* התאמת התמונה בצורה אסתטית */
+    height: 50px; 
+    width: auto; 
+    vertical-align: middle; 
+    margin-right: 10px; 
+    border-radius: 50%; 
+    object-fit: cover; 
 }
 
 /* תפריט ניווט */
@@ -57,7 +57,7 @@ main {
     
     color: white;
     padding: 20px;
-    background-image: url('admin-bg.jpg'); /* נתיב לתמונה */
+    background-image: url('admin-bg.jpg'); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -97,7 +97,7 @@ p {
     border: none;
     border-radius: 5px;
     width: 8cm;
-    margin: 0 auto; /* מרכז את האובייקט אופקית */
+    margin: 0 auto; 
     margin-bottom: auto;
     padding: 15px 30px;
     font-size: 1.2em;
