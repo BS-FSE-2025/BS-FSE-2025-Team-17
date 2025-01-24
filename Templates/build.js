@@ -47,8 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // נטרול בחירת אולמות
         const hallCards = document.getElementById('halls-container');
         if (hallCards) {
-            hallCards.style.pointerEvents = 'none'; // מניעת אינטראקציה
-            hallCards.style.opacity = '0.5'; // מראה עמום לאזור האולמות
+            hallCards.style.pointerEvents = 'none';
+            hallCards.style.opacity = '0.5'; 
         }
     });
 

@@ -13,12 +13,12 @@ header {
   z-index: 1000;
 }
 .logo {
-  height: 50px; /* גובה הלוגו */
-  width: auto; /* התאמה יחסית לרוחב */
-  vertical-align: middle; /* מיישר את הלוגו עם שאר הקישורים */
-  margin-right: 10px; /* רווח בין הלוגו לקישורים */
-  border-radius: 50%; /* עיגול (אם תרצה) */
-  object-fit: cover; /* התאמת התמונה בצורה אסתטית */
+  height: 50px;
+  width: auto; 
+  vertical-align: middle; 
+  margin-right: 10px; 
+  border-radius: 50%; 
+  object-fit: cover; 
 }
 /* תפריט ניווט */
 .navbar {
@@ -26,9 +26,9 @@ header {
   padding: 0;
   margin: 0;
   display: flex;
-  align-items: center; /* מיישר את הפריטים למרכז אנכי */
+  align-items: center; 
   justify-content: center;
-  gap: 15px; /* רווח בין הפריטים */
+  gap: 15px; 
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -63,7 +63,7 @@ main{
 }
 .carousel-container {
   max-width: 800px;
-  width: 100%; /* Make the carousel responsive */
+  width: 100%; 
   
 }
 
@@ -91,9 +91,15 @@ main{
 footer {
   background-color: black;
   color: white;
-  padding: 10px 0;
-  text-align: center;
-  position: fixed;
-  width: 100%;
+  padding: 0;
+  position: fixed; 
   bottom: 0;
+  left: 0;
+  width: 100%;
+  font-size: 14px;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 50px; 
+  z-index: 1000; 
 }

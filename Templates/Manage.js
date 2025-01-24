@@ -1,4 +1,3 @@
-// Script for loading users and managing actions
 document.addEventListener('DOMContentLoaded', () => {
     // פונקציה לשליפת נתונים משרת
     async function fetchUsers() {

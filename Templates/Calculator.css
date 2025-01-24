@@ -1,19 +1,19 @@
 #calculator-icon {
     position: fixed;
-    bottom: 20px; /* מרחק מהתחתית */
-    right: 20px; /* מרחק מהימין */
-    width: 60px; /* התאמה לגובה האייקון השני */
-    height: 60px; /* התאמה לרוחב האייקון השני */
+    bottom: 20px; 
+    right: 20px; 
+    width: 60px; 
+    height: 60px; 
     border: none; 
-    border-radius: 50%; /* עיגול מושלם */
-    background-color: black; /* צבע רקע */
+    border-radius: 50%; 
+    background-color: black; 
     display: flex;
-    align-items: center; /* ממרכז את האייקון אנכית */
-    justify-content: center; /* ממרכז את האייקון אופקית */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* צל לתלת ממדיות */
-    cursor: pointer; /* סמן לחיץ */
+    align-items: center; 
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    cursor: pointer;
     outline: none;
-    transition: transform 0.2s ease-in-out; /* אפקט מעבר */
+    transition: transform 0.2s ease-in-out; 
 }
 
 #calculator-icon i {
