@@ -53,64 +53,72 @@
 </body>
 </html>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", async () => {
-    try {
-        const response = await fetch("/getUserDetails", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
+<script>
+    document.addEventListener("DOMContentLoaded", async () => {
+        try {
+            const response = await fetch("/getUserDetails", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
 
-        if (response.ok) {
-            const userDetails = await response.json();
+            if (response.ok) {
+                const userDetails = await response.json();
 
-            // מילוי אוטומטי של שדות הטופס
-            document.getElementById("name").value = userDetails.name || "";
-            document.getElementById("phone_number").value = userDetails.Email || "";
-        } else {
-            console.log("משתמש לא מחובר או שגיאה באימות.");
+                // מילוי אוטומטי של שדות הטופס
+                document.getElementById("name").value = userDetails.name || "";
+                document.getElementById("phone_number").value = userDetails.Email || "";
+            } else {
+                console.log("משתמש לא מחובר או שגיאה באימות.");
+            }
+        } catch (error) {
+            console.error("שגיאה בשליפת פרטי המשתמש:", error);
         }
-    } catch (error) {
-        console.error("שגיאה בשליפת פרטי המשתמש:", error);
-    }
-});
+    });
+
     document.getElementById("contact_form").addEventListener("submit", async function (event) {
-    event.preventDefault();
+        event.preventDefault();
 
-    const name = document.getElementById("name").value;
-    const city = document.getElementById("city").value || null;
-    const content = document.getElementById("content").value || null;
-    const stars = parseInt(document.getElementById("stars").value, 10);
+        const name = document.getElementById("name").value;
+        const city = document.getElementById("city").value || null;
+        const content = document.getElementById("content").value || null;
+        const stars = parseInt(document.getElementById("stars").value, 10);
 
-    if (!stars || stars < 1 || stars > 5) {
-        alert("נא להזין דירוג בין 1 ל-5.");
+        // בדיקה אם העיר תקינה
+        const cityRegex = /^[a-zA-Z\u0590-\u05FF\s]+$/; // מאפשר רק אותיות (אנגלית/עברית) ורווחים
+    if (city && (!cityRegex.test(city) || city.match(/[0-9]/))) {
+        alert("העיר שהוזנה אינה תקינה. נא להזין עיר עם תווים חוקיים, ללא מספרים.");
         return;
-    }
+}
 
-    try {
-        const response = await fetch("/submitReview", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ name, city, content, stars }),
-        });
 
-        if (response.ok) {
-            alert("הפנייה נשלחה בהצלחה!");
-            document.getElementById("contact_form").reset();
-        } else {
-            const error = await response.json();
-            alert(`שגיאה: ${error.message}`);
+        if (!stars || stars < 1 || stars > 5) {
+            alert("נא להזין דירוג בין 1 ל-5.");
+            return;
         }
-    } catch (err) {
-        console.error("שגיאה בשליחת הבקשה:", err);
-        alert("חלה שגיאה בשליחת הפנייה. אנא נסה שנית.");
-    }
-});
 
-    </script>
+        try {
+            const response = await fetch("/submitReview", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ name, city, content, stars }),
+            });
+
+            if (response.ok) {
+                alert("הפנייה נשלחה בהצלחה!");
+                document.getElementById("contact_form").reset();
+            } else {
+                const error = await response.json();
+                alert(`שגיאה: ${error.message}`);
+            }
+        } catch (err) {
+            console.error("שגיאה בשליחת הבקשה:", err);
+            alert("חלה שגיאה בשליחת הפנייה. אנא נסה שנית.");
+        }
+    });
+</script>
 </body>
 </html>
