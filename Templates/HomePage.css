@@ -8,6 +8,33 @@ main {
     background-repeat: no-repeat;
     transition: background-image 1s ease-in-out; 
 }
+/* כותרת ראשית עם עיצוב עדין */
+.highlight-section {
+    text-align: center;
+    margin: 20px auto;
+    background-color: #F5E6CC;
+    border: 2px solid #D1B58F;
+    border-radius: 15px; /* פינות מעוגלות */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* צל עדין */
+    padding: 10px 15px; /* ריווח פנימי מצומצם יותר */
+    width: 80%; /* התאמת רוחב */
+    max-width: 15cm;
+}
+
+.highlight-title {
+    font-size: 2.0rem; /* גודל כותרת בינוני */
+    font-weight: bold; /* טקסט מודגש */
+    color: black; /* צבע טקסט */
+    margin-bottom: 5px; /* מרווח מתחת לכותרת */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* גופן */
+}
+
+.highlight-subtitle {
+    font-size: 1rem; /* גודל טקסט קטן */
+    color: #7C4D3A; /* צבע חום בהיר יותר */
+    margin: 0; /* ללא מרווח נוסף */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* גופן */
+}
 
 header {
     background-color:black;
@@ -172,7 +199,7 @@ body {
 
 /* טקסט ראשי */
 #text {
-    width: 50%; 
+    width: 30.5%; 
     margin: 20px auto;
     padding: 10px;
     background-color: #F5E6CC;
