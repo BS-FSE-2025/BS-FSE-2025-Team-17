@@ -1,32 +1,87 @@
-document.getElementById("checkout-button").addEventListener("click", function () {
-    const cartElement = document.getElementById("cart");
+document.getElementById("checkout-button").addEventListener("click", async function () {
+    // פונקציה לשליפת פרטי המשתמש
+    async function fetchUserDetails() {
+        try {
+            const response = await fetch("/getUserDetails", {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("authToken") || ""}`,
+                    "Content-Type": "application/json"
+                }
+            });
 
-    // שכפול תוכן העגלה להסרת כפתורים שאינם נחוצים
-    const clonedCart = cartElement.cloneNode(true);
-    clonedCart.querySelectorAll("button").forEach(button => button.remove());
 
-    // הסרת כותרת "האירוע שלך" מהעותק של העגלה
-    const eventTitle = clonedCart.querySelector("h2");
-    if (eventTitle) {
-        eventTitle.remove();
-    }
+                    if (response.ok) {
+                        return await response.json();
+                    } else {
+                        return null;
+                    }
+                } catch (error) {
+                    return null;
+                }
+            }
 
-    // הסרת כותרת "סה\"כ" מהעותק של העגלה
-    const totalTitle = clonedCart.querySelector(".cart-total-wrapper");
-    if (totalTitle) {
-        totalTitle.remove();
-    }
+            const userDetails = await fetchUserDetails();
 
-    // יצירת חלון חדש לעמוד הסיכום
-    const tempWindow = window.open("", "_blank");
-    tempWindow.document.write(`
-        <!DOCTYPE html>
-        <html lang="he">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>סיכום עגלה</title>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+        
+
+            // עדכון שם המשתמש עם רווח בלתי נשבר
+            if (userDetails.name) {
+                userDetails.name = userDetails.name.replace(/(\S+)\s(\S+)/g, "$1\u00A0$2");
+            }
+
+            const cartElement = document.getElementById("cart");
+
+            // שכפול תוכן העגלה להסרת כפתורים שאינם נחוצים
+            const clonedCart = cartElement.cloneNode(true);
+            clonedCart.querySelectorAll("button").forEach(button => button.remove());
+
+            // הסרת כותרת "האירוע שלך" מהעותק של העגלה
+            const eventTitle = clonedCart.querySelector("h2");
+            if (eventTitle) {
+                eventTitle.remove();
+            }
+
+            // הסרת כותרת "סה\"כ" מהעותק של העגלה
+            const totalTitle = clonedCart.querySelector(".cart-total-wrapper");
+            if (totalTitle) {
+                totalTitle.remove();
+            }
+
+            // טיפול בערים עם שתי מילים (הוספת רווח בלתי נשבר)
+            // clonedCart.querySelectorAll(".cart-items-wrapper li").forEach(item => {
+                // const cityMatch = item.textContent.match(/עיר - (.+)/);
+                // if (cityMatch && cityMatch[1]) {
+            //         const city = cityMatch[1];
+            //         const updatedCity = city.replace(/(\S+)\s(\S+)/g, "$1\u00A0$2");
+            //         item.textContent = item.textContent.replace(city, updatedCity);
+            //     }
+            // });
+
+            // הוספת פרטי המשתמש לעמוד הסיכום
+            const userDetailsElement = document.createElement("div");
+            userDetailsElement.className = "user-details";
+            userDetailsElement.innerHTML = `
+                <p>לכבוד - ${userDetails.name || ""}</p>
+            `;
+            clonedCart.insertBefore(userDetailsElement, clonedCart.firstChild);
+
+            // יצירת חלון חדש לעמוד הסיכום
+            const tempWindow = window.open("", "_blank");
+            if (!tempWindow) {
+                console.error("הדפדפן חוסם חלונות קופצים. בטל את החסימה ונסה שוב.");
+                return;
+            }
+            console.log("חלון סיכום נפתח:", tempWindow);
+
+            tempWindow.document.write(`
+                <!DOCTYPE html>
+                <html lang="he">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>סיכום עגלה</title>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
             <style>
                    body {
                     font-family: 'David Libre', Tahoma, Geneva, Verdana, sans-serif;
@@ -241,30 +296,13 @@ document.getElementById("checkout-button").addEventListener("click", function ()
                     jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
                 };
 
-                html2pdf().from(element).set(options).save().finally(function () {
-                    // שחזור סגנונות מקוריים
-                    downloadButton.style.display = "block"; // הצגת הכפתור מחדש
-                    downloadButton.parentElement.style.textAlign = originalParentTextAlign || "center"; // החזרת יישור מרכזי להורה
-                    downloadButton.style.margin = originalMargin || "0 auto"; // החזרת מרכז הכפתור
-
-                    // החזרת טקסט הערים למצבם המקורי
-                    cartItems.forEach(item => {
-                        const cityTextMatch = item.textContent.match(/עיר - (.+)/);
-                        if (cityTextMatch && cityTextMatch[1]) {
-                            const city = cityTextMatch[1];
-                            const originalCity = city.replace(/\u00A0/g, ' '); // החזרת רווח רגיל
-                            item.textContent = item.textContent.replace(city, originalCity);
-                        }
-                    });
-
-                    // הפניה לדף ביקורת
+               html2pdf().from(element).set(options).save().finally(function () {
+                // הפניה לדף ביקורות (או פעולה אחרת שתרצי לבצע לאחר יצירת ה-PDF)
                     window.location.href = "Reviews.html";
+});
                 });
-            });
-
             </script>
         </body>
         </html>
     `);
 });
-
