@@ -122,3 +122,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    const popup = document.getElementById("registration-popup");
+    const closePopup = document.getElementById("close-popup");
+
+    // הצגת הפופאפ אם המשתמש הופנה מדף הבית
+    if (localStorage.getItem("showRegistrationPopup") === "true") {
+        popup.style.display = "block";
+        localStorage.removeItem("showRegistrationPopup");
+    }
+
+    // סגירת הפופאפ
+    closePopup.addEventListener("click", () => {
+        popup.style.display = "none";
+    });
+      // הסתרת הפופאפ כאשר המשתמש מתחיל להקליד בתיבת ההזנה
+    const inputFields = document.querySelectorAll('input[name="username"], input[name="password"]');
+    inputFields.forEach((input) => {
+        input.addEventListener("input", () => {
+            popup.style.display = "none";
+          });
+      });
+  });
