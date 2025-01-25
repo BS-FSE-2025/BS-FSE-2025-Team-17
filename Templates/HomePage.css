@@ -8,6 +8,7 @@ main {
     background-repeat: no-repeat;
     transition: background-image 1s ease-in-out; 
 }
+
 header {
     background-color:black;
     color: #fff;
@@ -82,6 +83,18 @@ body {
     justify-content: center;
     align-items: center;
     border-radius: 10px;
+}
+#b1{
+    background-color: burlywood; /* רקע בצבע burlywood */
+    border-radius: 15px; /* פינות מעוגלות */
+    padding: 20px; /* ריווח פנימי */
+    margin: 20px auto; /* מרחק חיצוני ומרכז העיצוב */
+    width:30%; /* רוחב התיבה */
+    text-align: center; /* יישור טקסט למרכז */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* צל לתיבה */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* גופן */
+    color: #000000; /* צבע טקסט */
+    font-size: 20px;
 }
 
 .reviews-content {
