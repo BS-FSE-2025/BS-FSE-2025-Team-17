@@ -7,6 +7,38 @@
     <link rel="stylesheet" href="HomePage.css">
     <script src="session.js" defer></script>
     <script src="background.js" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const planEventButton = document.querySelector(".plan-event-button");
+    
+            planEventButton.addEventListener("click", async (event) => {
+                event.preventDefault();
+    
+                try {
+                    const response = await fetch("/get-session");
+                    const data = await response.json();
+    
+                    console.log("Response from server:", data); // הצגת המידע שמגיע מהשרת
+    
+                    // בדיקה אם המשתמש מחובר לפי קיום שדה username
+                    if (response.ok && data.username) {
+                        console.log("User is logged in, redirecting...");
+                        // אם המשתמש רשום ומחובר, המשך לתכנון האירוע
+                        window.location.href = "EventSelector.html";
+                    } else {
+                        console.log("User is not logged in, redirecting to registration...");
+                        // אם המשתמש לא רשום, שמור מידע ב-localStorage והעבר לדף ההרשמה
+                        localStorage.setItem("showRegistrationPopup", "true");
+                        window.location.href = "Login.html";
+                    }
+                } catch (error) {
+                    console.error("Error during session check:", error);
+                    alert("שגיאה בבדיקה. נסה שנית מאוחר יותר.");
+                }
+            });
+        });
+    </script>    
+    
 </head>
 <body>
     <header>

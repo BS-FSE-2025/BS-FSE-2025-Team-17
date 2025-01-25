@@ -309,3 +309,45 @@ footer {
     height: 50px; 
     z-index: 1000; 
 }
+.popup {
+    position: fixed;
+    top: 20%; /* ממקם את הפופאפ באמצע המסך (אפשר לשנות לפי הצורך) */
+    left: 50%;
+    transform: translate(-50%, -20%); /* ממרכז את התיבה */
+    background-color: red; /* רקע התיבה בצבע אדום */
+    color: #fff; /* טקסט בצבע לבן */
+    padding: 20px; /* ריווח פנימי בתיבה */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* צל */
+    border-radius: 10px; /* פינות מעוגלות */
+    z-index: 1000; /* מבטיח שהפופאפ יהיה מעל אלמנטים אחרים */
+    width: 90%;
+    max-width: 400px; /* מקסימום רוחב התיבה */
+    text-align: center;
+}
+
+
+.popup-content {
+    position: relative;
+}
+
+.popup p {
+    margin: 0;
+    font-size: 16px;
+}
+
+.close {
+    position: absolute; /* מיקום מוחלט בתוך התיבה */
+    top: 5px; /* ממקם את האיקס למעלה */
+    right: 5px; /* ממקם את האיקס בצד ימין */
+    font-size: 18px; /* גודל האיקס */
+    color: #fff; /* צבע האיקס */
+    cursor: pointer; /* מצביע לחיץ */
+    z-index: 1001; /* מבטיח שהאיקס יהיה מעל שאר האלמנטים */
+    background-color: transparent; /* רקע שקוף */
+    border: none; /* ללא גבול */
+    padding: 0; /* אין רווחים נוספים */
+}
+
+.close:hover {
+    color: #000; /* צבע שחור כאשר העכבר על האיקס */
+}
